@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohana_care/screen/MyOhanaCare.dart';
+import 'package:ohana_care/screen/auth/sign_in.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyOhanaCare(),
+      home: const SignIn(),
     );
   }
 }
