@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ohana_care/model/sign_up_data.dart';
 import 'package:ohana_care/screen/auth/role_choose.dart';
 
 import '../../widget/input_field.dart';
@@ -11,15 +12,15 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String email = "";
+  String userName = "";
+  String password = "";
+  String confirm_password = "";
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final alphanumeric = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
-    String email = "";
-    String userName = "";
-    String password = "";
-    String confirm_password = "";
 
     return Scaffold(
       body: SafeArea(
@@ -57,10 +58,8 @@ class _SignUpState extends State<SignUp> {
                       InputField(
                         hide: false,
                         hintText: "Email",
-                        onChanged: (value) => {
-                          setState(() {
-                            email = value;
-                          }),
+                        onChanged: (value) {
+                          email = value;
                         },
                         validator: (value) {
                           if (value == "" || value == null) {
@@ -79,10 +78,8 @@ class _SignUpState extends State<SignUp> {
                       InputField(
                         hide: false,
                         hintText: "Username",
-                        onChanged: (value) => {
-                          setState(() {
-                            userName = value;
-                          }),
+                        onChanged: (value) {
+                          userName = value;
                         },
                         validator: (value) {
                           if (value == "" || value == null) {
@@ -98,10 +95,8 @@ class _SignUpState extends State<SignUp> {
                       InputField(
                         hide: true,
                         hintText: "Password",
-                        onChanged: (value) => {
-                          setState(() {
-                            password = value;
-                          }),
+                        onChanged: (value) {
+                          password = value;
                         },
                         validator: (value) {
                           if (value == "" || value == null) {
@@ -121,40 +116,40 @@ class _SignUpState extends State<SignUp> {
                       InputField(
                         hide: true,
                         hintText: "Confirm Password",
-                        onChanged: (value) => {
-                          setState(() {
-                            confirm_password = value;
-                          }),
+                        onChanged: (value) {
+                          confirm_password = value;
                         },
                         validator: (value) {
                           if (value == "" || value == null) {
                             return "Password cannot be empty";
-                          } else if (value != password) {
+                          } else if (confirm_password != password) {
                             return "Passwords are not the same";
                           } else {
                             return null;
                           }
                         },
                       ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.black,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
+                          ),
+                          onPressed: _formKey.currentState == null || !_formKey.currentState!.validate() ? null : () {
+                            FocusScope.of(context).unfocus();
+                            SignUpData user = SignUpData(email: email, password: password, name: userName, role: '');
+                            print(email);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => RoleChoose(user: user)));
+                          },
+                          child: const Text("Next"),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                     ],
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.08),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
-                    ),
-                    onPressed: () {
-                      FocusScope.of(context).unfocus();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const RoleChoose()));
-                    },
-                    child: const Text("Next"),
-                  ),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.08),
               ],
             ),
           ),

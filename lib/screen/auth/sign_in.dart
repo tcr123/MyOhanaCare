@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:ohana_care/screen/homepage/homepage.dart';
 import 'package:ohana_care/screen/my_ohana_care.dart';
 import 'package:ohana_care/screen/auth/sign_up.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/auth_provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -16,6 +21,7 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -111,7 +117,41 @@ class _SignInState extends State<SignIn> {
                     ),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const MyOhanaCare()));
+                      EasyLoading.show(status: "Sign in......");
+                      authProvider.signInHandler(email_controller.text, password_controller.text).then((value) {
+                        EasyLoading.dismiss();
+                        if (value == "200 success") {
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                        } else if (value == "403 invalid") {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Sign In Failed'),
+                              content: const Text('Please try again.'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Sign In Failed'),
+                              content: const Text('The user not found'),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      });
                     },
                     child: const Text("Sign in"),
                   ),
