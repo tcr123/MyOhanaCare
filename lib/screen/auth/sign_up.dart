@@ -139,8 +139,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                           onPressed: _formKey.currentState == null || !_formKey.currentState!.validate() ? null : () {
                             FocusScope.of(context).unfocus();
-                            SignUpData user = SignUpData(email: email, password: password, name: userName, role: '');
-                            print(email);
+                            SignUpData user = SignUpData(email: email, password: password, name: userName, role: '', age: 0);
                             Navigator.push(context, MaterialPageRoute(builder: (context) => RoleChoose(user: user)));
                           },
                           child: const Text("Next"),

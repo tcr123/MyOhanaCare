@@ -41,8 +41,12 @@ class AuthProvider extends ChangeNotifier {
             'email': user.email,
             'password': user.password,
             'role': user.role,
+            'married': user.married,
+            'children': user.children,
+            'menstrual': user.menstrual,
             'auth': 'signup',
-            'name': user.name
+            'name': user.name,
+            'age': user.age
           }));
       var jsonResponse = jsonDecode(response.body);
       print(jsonResponse);

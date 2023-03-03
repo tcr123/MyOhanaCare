@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohana_care/model/sign_up_data.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:ohana_care/provider/auth_provider.dart';
 import 'package:ohana_care/screen/auth/sign_in.dart';
-import 'package:provider/provider.dart';
+import 'package:ohana_care/screen/auth/sign_up_detail.dart';
 
 class RoleChoose extends StatefulWidget {
   SignUpData user;
@@ -20,7 +18,7 @@ class _RoleChooseState extends State<RoleChoose> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    
 
     return Scaffold(
       body: SafeArea(
@@ -152,43 +150,9 @@ class _RoleChooseState extends State<RoleChoose> {
                       } else {
                         widget.user.role = 'Husband';
                       }
-                      EasyLoading.show(status: "Sign up......");
-                      authProvider.signUpHandler(widget.user).then((value) {
-                        EasyLoading.dismiss();
-                        if (value == "200 success") {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignIn()));
-                        } else if (value == "403 invalid") {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Register Failed'),
-                              content: const Text('Please try again.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          showDialog<String>(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Register Failed'),
-                              content: const Text('The email is being used.'),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      });
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SignUpDetail(user: widget.user)));
                     },
-                    child: const Text("Sign Up"),
+                    child: const Text("Continue"),
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),

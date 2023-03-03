@@ -121,7 +121,7 @@ class _SignInState extends State<SignIn> {
                       authProvider.signInHandler(email_controller.text, password_controller.text).then((value) {
                         EasyLoading.dismiss();
                         if (value == "200 success") {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const HomePage()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyOhanaCare()));
                         } else if (value == "403 invalid") {
                           showDialog<String>(
                             context: context,
