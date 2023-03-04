@@ -17,8 +17,9 @@ class InputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.8,
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.only(left: 30.0, right: 30.0),
       child: TextFormField(
         onChanged: onChanged,
         validator: validator,

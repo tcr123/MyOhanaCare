@@ -1,19 +1,25 @@
+import 'package:flutter/rendering.dart';
+
 class User {
   String id;
-  String name;
-  int age;
-  String gender;
-  String role;
-  String details;
   String email;
+  String password;
+  String name;
+  String role;
+  int age;
+  String married;
+  String children;
+  String menstrual;
 
   User ({
     required this.id,
+    required this.email,
+    required this.password,
     required this.name,
-    required this.age,
-    required this.gender,
     required this.role,
-    required this.details,
-    required this.email
+    required this.age,
+    required this.married,
+    required this.children,
+    required this.menstrual
   });
 }
