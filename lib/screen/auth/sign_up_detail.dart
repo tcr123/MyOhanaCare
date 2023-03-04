@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ohana_care/model/sign_up_data.dart';
+import 'package:ohana_care/screen/auth/register_successful.dart';
 import 'package:ohana_care/screen/auth/sign_in.dart';
 import 'package:provider/provider.dart';
 
@@ -131,10 +132,10 @@ class _SignUpDetailState extends State<SignUpDetail> {
                           }
                         },
                       ),
-                      if (widget.user.role == "Female") const SizedBox(
+                      if (widget.user.role == "Wife") const SizedBox(
                         height: 15,
                       ),
-                      if (widget.user.role == "Female") InputField(
+                      if (widget.user.role == "Wife") InputField(
                         hide: false,
                         hintText: "Is your mestrual cycle frequent?",
                         onChanged: (value) {
@@ -166,7 +167,7 @@ class _SignUpDetailState extends State<SignUpDetail> {
                             authProvider.signUpHandler(widget.user).then((value) {
                               EasyLoading.dismiss();
                               if (value == "200 success") {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignIn()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegisterSuccessful()));
                               } else if (value == "403 invalid") {
                                 showDialog<String>(
                                   context: context,
