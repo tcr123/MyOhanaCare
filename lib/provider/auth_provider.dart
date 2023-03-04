@@ -28,7 +28,21 @@ class AuthProvider extends ChangeNotifier {
       var jsonResponse = jsonDecode(response.body);
       print(jsonResponse);
 
-      if(jsonResponse['message']=="200 success"){
+      if(jsonResponse['message']=="200 success") {
+        user = User(
+          id: jsonResponse['token'], 
+          email: jsonResponse['user']['email'], 
+          password: jsonResponse['user']['password'], 
+          name: jsonResponse['user']['name'], 
+          role: jsonResponse['user']['role'], 
+          age: jsonResponse['user']['age'], 
+          married: jsonResponse['user']['married'], 
+          children: jsonResponse['user']['children'], 
+          menstrual: jsonResponse['user']['menstrual']
+        );
+
+        notifyListeners();
+
         return "200 success";
       }
       else if (jsonResponse["message"] == "403 invalid") {

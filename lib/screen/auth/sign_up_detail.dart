@@ -167,7 +167,8 @@ class _SignUpDetailState extends State<SignUpDetail> {
                             authProvider.signUpHandler(widget.user).then((value) {
                               EasyLoading.dismiss();
                               if (value == "200 success") {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegisterSuccessful()));
+                                Navigator.popUntil(context, (route) => false);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterSuccessful()));
                               } else if (value == "403 invalid") {
                                 showDialog<String>(
                                   context: context,
