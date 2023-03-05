@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ohana_care/provider/auth_provider.dart';
+import 'package:ohana_care/provider/calendar_provider.dart';
 import 'package:ohana_care/screen/auth/sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:ohana_care/provider/chat_provider.dart';
 import 'package:ohana_care/provider/models_provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
+  initializeDateFormatting().then((_) => runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: AuthProvider()),
-  ], child: const MyApp()));
+    ChangeNotifierProvider.value(value: CalendarProvider()),
+  ], child: const MyApp())));
   EasyLoading.instance
     ..indicatorType = EasyLoadingIndicatorType.dualRing
     ..maskType = EasyLoadingMaskType.custom

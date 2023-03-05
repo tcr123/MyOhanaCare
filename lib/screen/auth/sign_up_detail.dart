@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ohana_care/model/sign_up_data.dart';
 import 'package:ohana_care/screen/auth/register_successful.dart';
-import 'package:ohana_care/screen/auth/sign_in.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/auth_provider.dart';
@@ -23,7 +22,8 @@ class _SignUpDetailState extends State<SignUpDetail> {
   String age = "";
   String married = "";
   String children = "";
-  String mestrual = "";
+  String mestrual = "no";
+  bool mestrualLight = false;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -135,19 +135,33 @@ class _SignUpDetailState extends State<SignUpDetail> {
                       if (widget.user.role == "Wife") const SizedBox(
                         height: 15,
                       ),
-                      if (widget.user.role == "Wife") InputField(
-                        hide: false,
-                        hintText: "Is your mestrual cycle frequent?",
-                        onChanged: (value) {
-                          mestrual = value;
-                        },
-                        validator: (value) {
-                          if (value == "" || value == null) {
-                            return null;
-                          } else {
-                            return null;
-                          }
-                        },
+                      if (widget.user.role == "Wife") Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.only(left: 30.0, right: 30.0),
+                        child: Row(
+                          children: [
+                            Switch(
+                              // This bool value toggles the switch.
+                              value: mestrualLight,
+                              activeColor: Colors.limeAccent,
+                              onChanged: (bool value) {
+                                // This is called when the user toggles the switch.
+                                setState(() {
+                                  mestrualLight = value;
+                                  mestrual = mestrualLight ? 'yes' : 'no';
+                                });
+                              },
+                            ),
+                            const SizedBox(width: 5),
+                            const Text(
+                              'Is your mestrual cycle frequent?',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.black87
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                       SizedBox(

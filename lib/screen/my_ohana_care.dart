@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:ohana_care/screen/calendar/calendar.dart';
 import 'package:ohana_care/screen/chatbot/chat_screen.dart';
 import 'package:ohana_care/screen/homepage/homepage.dart';
 import 'package:ohana_care/screen/location/multimarker.dart';
+import 'package:ohana_care/screen/profile/profile.dart';
 
 class MyOhanaCare extends StatefulWidget {
   const MyOhanaCare({super.key});
@@ -19,15 +21,12 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _ohanaCareOptions = <Widget>[
     HomePage(),
+    Calendar(),
+    Profile(),
     Text(
-      'Index 1: Calendar',
+      'Index 3: Map',
       style: optionStyle,
     ),
-    Text(
-      'Index 2: Profile',
-      style: optionStyle,
-    ),
-    MapMultiMarker(),
   ];
 
   void _onItemTapped(int index) {
