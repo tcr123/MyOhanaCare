@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ohana_care/screen/auth/sign_in.dart';
+import 'package:ohana_care/screen/auth/connect_spouse.dart';
 import 'package:ohana_care/screen/my_ohana_care.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +44,7 @@ class _RegisterSuccessfulState extends State<RegisterSuccessful> {
                     )
                   )
                 ),
-                 SizedBox(height: MediaQuery.of(context).size.height * 0.10),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.10),
                 Container(
                   width: 120,
                   height: 140,
@@ -62,7 +62,7 @@ class _RegisterSuccessfulState extends State<RegisterSuccessful> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.10),
                 Column(
                   children: [
-                    SizedBox(
+                    if (authProvider.getUserData.role == "Husband")  SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -70,7 +70,7 @@ class _RegisterSuccessfulState extends State<RegisterSuccessful> {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
                         ),
                         onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignIn()));
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ConnectSpouse()));
                         },
                         child: const Text("Connect to Spouse"),
                       ),
@@ -80,13 +80,13 @@ class _RegisterSuccessfulState extends State<RegisterSuccessful> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.black38,
+                          primary: authProvider.getUserData.role == "Husband" ? Colors.black38 : Colors.black,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
                         ),
                         onPressed: () {
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyOhanaCare()));
                         },
-                        child: const Text("May be Later"),
+                        child: authProvider.getUserData.role == "Husband" ? const Text("May be Later") : const Text("Continue"),
                       ),
                     ),
                   ],
