@@ -15,6 +15,43 @@ class AuthProvider extends ChangeNotifier {
 
   User get userData => getUserData;
 
+  Future<User?> connectYourSpouse(String email, String token) async {
+    try {
+      var url = Uri.parse('https://sticheapi.vercel.app/api/link');
+      var response = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization": "Bearer $token"
+        },
+        body: jsonEncode({
+          'email': email
+        }));
+      var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
+
+      if(jsonResponse['message']=="200 success"){
+        return User(
+          id: jsonResponse['spouse']['id'],
+          email: jsonResponse['spouse']['email'],
+          name: jsonResponse['spouse']['name'], 
+          role: jsonResponse['spouse']['role'], 
+          age: jsonResponse['spouse']['age'], 
+          married: jsonResponse['spouse']['married'], 
+          children: jsonResponse['spouse']['children'], 
+          menstrual: jsonResponse['spouse']['menstrual']
+        );
+      }
+      else if (jsonResponse["message"] == "403 invalid") {
+        return null;
+      } 
+      else {
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+  }
+
   Future<String> signInHandler(String email, String password) async {
     try {
       var url = Uri.parse('https://sticheapi.vercel.app/api/auth');
@@ -31,8 +68,7 @@ class AuthProvider extends ChangeNotifier {
       if(jsonResponse['message']=="200 success") {
         user = User(
           id: jsonResponse['token'], 
-          email: jsonResponse['user']['email'], 
-          password: jsonResponse['user']['password'], 
+          email: jsonResponse['user']['email'],
           name: jsonResponse['user']['name'], 
           role: jsonResponse['user']['role'], 
           age: jsonResponse['user']['age'], 
@@ -78,8 +114,7 @@ class AuthProvider extends ChangeNotifier {
       if(jsonResponse['message']=="200 success"){
         user = User(
           id: jsonResponse["token"], 
-          email: signUpUser.email, 
-          password: signUpUser.password, 
+          email: signUpUser.email,
           name: signUpUser.name, 
           role: signUpUser.role, 
           age: signUpUser.age, 
