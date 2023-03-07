@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:ohana_care/screen/homepage/homepage.dart';
+import 'package:ohana_care/screen/location/multimarker.dart';
 
 class MyOhanaCare extends StatefulWidget {
   const MyOhanaCare({super.key});
@@ -13,8 +14,8 @@ class MyOhanaCare extends StatefulWidget {
 class _MyOhanaCareState extends State<MyOhanaCare> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle = 
-    TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _ohanaCareOptions = <Widget>[
     HomePage(),
     Text(
@@ -25,10 +26,7 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
       'Index 2: Profile',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Map',
-      style: optionStyle,
-    ),
+    MapMultiMarker(),
   ];
 
   void _onItemTapped(int index) {
@@ -46,9 +44,7 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {
-
-        },
+        onPressed: () {},
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -72,15 +68,15 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
             const SizedBox(width: 20),
             const SizedBox(width: 20),
             IconButton(
-              icon: const Icon(Icons.person),
-              onPressed: () {
-                _onItemTapped(2);
-              },
-            ),
-            IconButton(
               icon: const Icon(Icons.map),
               onPressed: () {
                 _onItemTapped(3);
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.person),
+              onPressed: () {
+                _onItemTapped(2);
               },
             ),
           ],
