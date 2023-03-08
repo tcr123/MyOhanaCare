@@ -23,10 +23,7 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
     HomePage(),
     Calendar(),
     Profile(),
-    Text(
-      'Index 3: Map',
-      style: optionStyle,
-    ),
+    MapMultiMarker()
   ];
 
   void _onItemTapped(int index) {
