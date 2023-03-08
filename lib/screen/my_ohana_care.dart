@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:ohana_care/screen/chatbot/chat_screen.dart';
 import 'package:ohana_care/screen/homepage/homepage.dart';
 import 'package:ohana_care/screen/location/multimarker.dart';
 
@@ -44,7 +45,13 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          print("pressed");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ChatScreen()),
+          );
+        },
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
