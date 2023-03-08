@@ -1,4 +1,3 @@
-import 'package:flutter/rendering.dart';
 
 class User {
   String id;
