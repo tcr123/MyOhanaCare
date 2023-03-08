@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:ohana_care/model/chat_model.dart';
+import 'package:ohana_care/provider/auth_provider.dart';
 import 'package:ohana_care/provider/chat_provider.dart';
 import 'package:ohana_care/provider/models_provider.dart';
 import 'package:ohana_care/screen/chatbot/chat_widget.dart';
@@ -38,15 +39,22 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
+  AuthProvider authProvider = new AuthProvider();
+
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final provider = Provider.of<ModelProvider>(context, listen: false);
     final chatProvider = Provider.of<ChatProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
           leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset("assets/female_stitch.png"),
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Image(
+              image: authProvider.getUserData.role == "Husband"
+                  ? const AssetImage('assets/male_stitch.png')
+                  : const AssetImage('assets/female_stitch.png'),
+            ),
           ),
           title: RichText(
             textAlign: TextAlign.center,
