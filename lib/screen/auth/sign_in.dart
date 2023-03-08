@@ -28,32 +28,32 @@ class _SignInState extends State<SignIn> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/loading_page.png'),
-              fit: BoxFit.fill
-            )
-          ),
+              image: DecorationImage(
+                  image: AssetImage('assets/loading_page.png'),
+                  fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.15),
-                const Text('LOGIN', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w500)),
+                const Text('LOGIN',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500)),
                 const SizedBox(height: 6),
                 Container(
                   width: 120,
                   height: 140,
                   decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/male_stitch.png'),
-                      fit: BoxFit.fill
-                    )
-                  ),
+                      image: DecorationImage(
+                          image: AssetImage('assets/blank_stitch.png'),
+                          fit: BoxFit.fill)),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Form(
-                  child: Column(
-                    children: [
+                    child: Column(
+                  children: [
                     const SizedBox(
                       height: 10,
                     ),
@@ -65,15 +65,16 @@ class _SignInState extends State<SignIn> {
                           fillColor: Colors.white,
                           filled: true,
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 3, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(30.0)
-                          ), 
+                              borderSide: const BorderSide(
+                                  width: 3, color: Colors.grey),
+                              borderRadius: BorderRadius.circular(30.0)),
                           prefixIcon: const Icon(
                             Icons.email,
                             size: 20,
                           ),
                           hintText: "Email",
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
                         ),
                       ),
                     ),
@@ -89,15 +90,16 @@ class _SignInState extends State<SignIn> {
                           fillColor: Colors.white,
                           filled: true,
                           border: OutlineInputBorder(
-                            borderSide: const BorderSide(width: 3, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(30.0)
-                          ),
+                              borderSide: const BorderSide(
+                                  width: 3, color: Colors.grey),
+                              borderRadius: BorderRadius.circular(30.0)),
                           prefixIcon: const Icon(
                             Icons.lock,
                             size: 20,
                           ),
                           hintText: "Password",
-                          contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10.0),
                         ),
                       ),
                     ),
@@ -106,22 +108,31 @@ class _SignInState extends State<SignIn> {
                 const SizedBox(
                   height: 2,
                 ),
-                err ? const Text("Wrong password or email", style: TextStyle(color: Colors.red)) : const Text(""),
+                err
+                    ? const Text("Wrong password or email",
+                        style: TextStyle(color: Colors.red))
+                    : const Text(""),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
-                    ),
+                        primary: Colors.black,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16))),
                     onPressed: () {
                       FocusScope.of(context).unfocus();
                       EasyLoading.show(status: "Sign in......");
-                      authProvider.signInHandler(email_controller.text, password_controller.text).then((value) {
+                      authProvider
+                          .signInHandler(
+                              email_controller.text, password_controller.text)
+                          .then((value) {
                         EasyLoading.dismiss();
                         if (value == "200 success") {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyOhanaCare()));
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const MyOhanaCare()));
                         } else if (value == "403 invalid") {
                           showDialog<String>(
                             context: context,
@@ -164,9 +175,15 @@ class _SignInState extends State<SignIn> {
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUp()));
                   },
-                  child: const Text("Don't have an account yet? Sign Up!", style: TextStyle(color: Colors.white),),
+                  child: const Text(
+                    "Don't have an account yet? Sign Up!",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -174,10 +191,11 @@ class _SignInState extends State<SignIn> {
                 InkWell(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,
-                  onTap: () {
-                    
-                  },
-                  child: const Text("Forgot password?", style: TextStyle(color: Colors.white),),
+                  onTap: () {},
+                  child: const Text(
+                    "Forgot password?",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
               ],

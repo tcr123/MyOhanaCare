@@ -7,6 +7,7 @@ import 'package:ohana_care/screen/chatbot/chat_screen.dart';
 import 'package:ohana_care/screen/homepage/homepage.dart';
 import 'package:ohana_care/screen/location/multimarker.dart';
 import 'package:ohana_care/screen/profile/profile.dart';
+import 'package:provider/provider.dart';
 
 class MyOhanaCare extends StatefulWidget {
   const MyOhanaCare({super.key});
@@ -33,24 +34,30 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
     });
   }
 
-  AuthProvider authProvider = new AuthProvider();
-
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    String role = authProvider.getUserData.role;
+    String imagePath = role == "Husband"
+        ? 'assets/male_stitch.png'
+        : 'assets/female_stitch.png';
+
     return Scaffold(
       body: Center(
         child: _ohanaCareOptions.elementAt(_selectedIndex),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
         child: Stack(
           alignment: Alignment.center,
           children: [
             const Icon(Icons.add),
             Image.asset(
-              'assets/female_stitch.png', // replace with your image path
-              width: 24,
-              height: 24,
+              imagePath,
+              width: 45,
+              height: 45,
             ),
           ],
         ),

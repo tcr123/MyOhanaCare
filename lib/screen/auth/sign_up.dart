@@ -18,6 +18,10 @@ class _SignUpState extends State<SignUp> {
   String confirm_password = "";
   final _formKey = GlobalKey<FormState>();
 
+  String getUsername() {
+    return userName;
+  }
+
   @override
   Widget build(BuildContext context) {
     final alphanumeric = RegExp(r'^(?=.*?[a-z])(?=.*?[0-9]).{6,}$');
@@ -28,27 +32,27 @@ class _SignUpState extends State<SignUp> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/loading_page.png'),
-              fit: BoxFit.fill
-            )
-          ),
+              image: DecorationImage(
+                  image: AssetImage('assets/loading_page.png'),
+                  fit: BoxFit.fill)),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.15),
-                const Text('SIGN UP', style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.w500)),
+                const Text('SIGN UP',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500)),
                 const SizedBox(height: 6),
                 Container(
                   width: 120,
                   height: 140,
                   decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/male_stitch.png'),
-                      fit: BoxFit.fill
-                    )
-                  ),
+                      image: DecorationImage(
+                          image: AssetImage('assets/blank_stitch.png'),
+                          fit: BoxFit.fill)),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Form(
@@ -129,23 +133,37 @@ class _SignUpState extends State<SignUp> {
                           }
                         },
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.08),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
-                          ),
-                          onPressed: _formKey.currentState == null || !_formKey.currentState!.validate() ? null : () {
-                            FocusScope.of(context).unfocus();
-                            SignUpData user = SignUpData(email: email, password: password, name: userName, role: '', age: 0);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => RoleChoose(user: user)));
-                          },
+                              primary: Colors.black,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16))),
+                          onPressed: _formKey.currentState == null ||
+                                  !_formKey.currentState!.validate()
+                              ? null
+                              : () {
+                                  FocusScope.of(context).unfocus();
+                                  SignUpData user = SignUpData(
+                                      email: email,
+                                      password: password,
+                                      name: userName,
+                                      role: '',
+                                      age: 0);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              RoleChoose(user: user)));
+                                },
                           child: const Text("Next"),
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.08),
                     ],
                   ),
                 ),
