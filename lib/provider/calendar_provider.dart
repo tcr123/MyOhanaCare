@@ -12,11 +12,48 @@ import '../model/event.dart';
 import '../model/weight_data.dart';
 
 class CalendarProvider extends ChangeNotifier {
-
   String convertDateToISO(String time) {
     DateTime date2= DateFormat("hh:mma").parse(time); 
     List<String> temp = date2.toString().split(' ');
     return temp[1];
+  }
+
+  Future<List<EventData>> fetchUserTodayEvent(String token) async {
+    try {
+      var url = Uri.parse('https://sticheapi.vercel.app/api/event?today=true');
+      var response = await http.get(url,
+        headers: {
+          "Authorization": "Bearer $token"
+        });
+      var jsonResponse = jsonDecode(response.body);
+
+      List<EventData> userEvent = [];
+
+      if(jsonResponse['message']=="200 success"){
+        for (var data in jsonResponse['data']['calendar']['event']) {
+          DateTime startDate = DateTime.parse(data['start']);
+          DateTime endDate = DateTime.parse(data['end']);
+          EventData newData = EventData(
+            role: data['role'], 
+            eventName: data['title'], 
+            startDate: startDate.toString(), 
+            endDate: endDate.toString(), 
+            location: data['location']
+          );
+          userEvent.add(newData);
+        }
+        return userEvent;
+      }
+      else if (jsonResponse["message"] == "403 invalid") {
+        return []; 
+      } 
+      else {
+        return [];
+      }
+    } catch (error) {
+      print(error);
+      return [];
+    }
   }
 
   Future<List<EventData>> fetchUserEvent(String token) async {

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ohana_care/main.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
+import 'package:ohana_care/screen/calendar/calendar.dart';
 import 'package:ohana_care/screen/homepage/editSOS.dart';
+import 'package:ohana_care/screen/homepage/tips2.dart';
+import 'package:ohana_care/screen/homepage/tips3.dart';
+import 'package:provider/provider.dart';
+import '../../model/event.dart';
+import '../../model/pregnancy_data.dart';
+import '../../provider/auth_provider.dart';
+import '../../provider/calendar_provider.dart';
 import '../../widget/EducationHome.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
@@ -21,8 +29,34 @@ class _HomePageState extends State<HomePage> {
   bool _floating = false;
   final number = '+60176865849';
 
+  List<EventData> _futureUserEvents = [];
+  PregnancyData? _futurePregnancyDate;
+
+  @override
+  void initState() {
+    super.initState();
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final calendarProvider = Provider.of<CalendarProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      calendarProvider.fetchUserTodayEvent(authProvider.getUserData.id).then((value) {
+        setState(() {
+          _futureUserEvents = value;
+        });
+      });
+      calendarProvider
+          .fetchUserPregnancy(authProvider.getUserData.id)
+          .then((value) {
+        if (value == null) return;
+        setState(() {
+          _futurePregnancyDate = value;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -49,8 +83,8 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(vertical: 30),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                dailyHighlight(),
-                dailyEvents(),
+                if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!),
+                dailyEvents(_futureUserEvents, context),
                 education(context),
               ]),
             ),
@@ -60,7 +94,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget dailyHighlight() {
+  Widget dailyHighlight(PregnancyData pregnancyData) {
+    DateTime startDay = DateTime.parse(pregnancyData.lastDayPeriod);
+    startDay = DateTime.utc(startDay.year, startDay.month, startDay.day);
+    DateTime lastDay = DateTime.parse(pregnancyData.expectedDeliveryDate);
+    lastDay = DateTime.utc(lastDay.year, lastDay.month, lastDay.day);
+    DateTime now = DateTime.now();
+
+    String phase = "";
+    Duration checkingPhase = now.difference(startDay);
+    if ((checkingPhase.inDays / 7) + 1 >= 1 && (checkingPhase.inDays / 7) + 1 <= 13) {
+      phase = "first trimester";
+    } else if ((checkingPhase.inDays / 7) + 1 >= 14 && (checkingPhase.inDays / 7) + 1 <= 27) {
+      phase = "second trimester";
+    } else if ((checkingPhase.inDays / 7) + 1 >= 28 && (checkingPhase.inDays / 7) + 1 <= 40) {
+      phase = "third trimester";
+    }
+    Duration weekLeft = lastDay.difference(now);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
@@ -75,7 +125,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(14, 12, 12, 12),
               child: Text(
                 'Daily Highlights',
@@ -87,7 +137,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Image.asset("assets/Pregnant.png"),
-                  Text("Pregnancy Cycle"),
+                  const Text("Pregnancy Cycle"),
                 ],
               ),
             ),
@@ -95,7 +145,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(40, 0, 20, 0),
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Color.fromRGBO(239, 154, 154, 1),
@@ -105,8 +155,8 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("20", style: TextStyle(color: Colors.black)),
-                          Text("Weeks", style: TextStyle(color: Colors.black)),
+                          Text(((weekLeft.inDays / 7).toInt() + 1).toString(), style: TextStyle(color: Colors.black)),
+                          const Text("Weeks", style: TextStyle(color: Colors.black)),
                         ],
                       ),
                     ),
@@ -121,13 +171,13 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.red.shade200,
                           fontWeight: FontWeight.w500),
                     ),
-                    Text("2nd Trimester"),
+                    Text(phase),
                     Text(""),
                     Text("WEEKS LEFT",
                         style: TextStyle(
                             color: Colors.red.shade200,
                             fontWeight: FontWeight.w500)),
-                    Text("20 weeks to go!"),
+                    Text("${((weekLeft.inDays / 7).toInt() + 1).toString()} weeks to go!"),
                   ],
                 )
               ],
@@ -171,10 +221,20 @@ class _HomePageState extends State<HomePage> {
                       child: const Text('More Tips >>',
                           style: TextStyle(color: Colors.black87)),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const tips()),
-                        );
+                        phase == 'first trimester' 
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const tips()),
+                          )
+                        : phase == 'second trimester'
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const tips2()),
+                          )
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const tips3()),
+                          );
                       },
                     ),
                   ),
@@ -188,7 +248,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget dailyEvents() {
+Widget dailyEvents(List<EventData> events, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: Card(
@@ -210,26 +270,16 @@ Widget dailyEvents() {
               style: TextStyle(color: Colors.black, fontSize: 20),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Row(
-              children: [
-                Image.asset("assets/Pregnant.png"),
-                Text("Doctor's Appointment"),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 4, 20, 4),
-            child: Divider(color: Colors.red.shade200),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 15, 4),
-            child: Row(
-              children: [
-                Image.asset("assets/Pregnant.png"),
-                Text("Company's Meeting"),
-              ],
+          ...events.map((event) =>
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, bottom: 10),
+              child: Row(
+                children: [
+                  Image.asset(event.role == 'Husband' ? "assets/icons/event_male.png" : "assets/icons/event.png", width: 32, height: 32),
+                  const SizedBox(width: 10),
+                  Text(event.eventName),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -252,7 +302,9 @@ Widget dailyEvents() {
                   child: TextButton(
                     child: const Text('View Details',
                         style: TextStyle(color: Colors.black87)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Calendar()));
+                    },
                   ),
                 ),
               ],
@@ -321,28 +373,53 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     required this.expandedHeight,
   });
 
+  var weekdays = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
+  var weekmonths = [
+    'Dec',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov'
+  ];
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final size = 190;
     final top = expandedHeight - shrinkOffset - size / 2;
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        buildBackground(shrinkOffset),
-        buildAppBar(shrinkOffset),
+        buildBackground(shrinkOffset, authProvider.getUserData.role),
+        buildAppBar(shrinkOffset, authProvider.getUserData.role, DateTime.now()),
         Positioned(
           top: 50,
           left: 20,
           right: 20,
-          child: buildText(shrinkOffset),
+          child: buildText(shrinkOffset, authProvider.getUserData.name),
         ),
         Positioned(
           top: 80,
           left: 20,
           right: 20,
-          child: buildButton(shrinkOffset),
+          child: buildButton(shrinkOffset, authProvider.getUserData.role),
         ),
         Positioned(
           top: 90,
@@ -366,16 +443,18 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 
-  Widget buildBackground(double shrinkOffset) {
+  Widget buildBackground(double shrinkOffset, String role) {
     return Stack(
       children: [
         CircleAvatar(
           backgroundColor: Colors.white,
-          backgroundImage: AssetImage('assets/female_stitch.png'),
+          backgroundImage: role == 'Husband' 
+            ? const AssetImage('assets/male_stitch.png')
+            : const AssetImage('assets/female_stitch.png'),
           radius: 50,
         ),
         Container(
-          color: Colors.red.shade100,
+          color: role == 'Husband' ? Colors.blue.shade100 : Colors.red.shade100,
         ),
       ],
     );
@@ -396,7 +475,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   //       ),
   //     );
 
-  Widget buildButton(double shrinkOffset) {
+  Widget buildButton(double shrinkOffset, String role) {
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: GestureDetector(
@@ -404,7 +483,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         child: CircleAvatar(
           backgroundColor: Colors.white,
           radius: 90,
-          child: Center(child: Image.asset("assets/female_stitch.png")),
+          child: Center(child: Image.asset(role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png")),
         ),
       ),
     );
@@ -415,6 +494,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   }
 
   Widget buildFloating(double shrinkOffset) {
+    DateTime now = DateTime.now();
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: Card(
@@ -430,7 +510,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  '21',
+                  now.day.toString(),
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 42,
@@ -442,13 +522,13 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Tuesday",
+                      weekdays[now.weekday % 7],
                       style: const TextStyle(
                           color: Color.fromARGB(255, 235, 146, 140),
                           fontSize: 18),
                     ),
                     Text(
-                      'Feb 2023',
+                      '${weekmonths[now.month % 12]} ${now.year}',
                       style: const TextStyle(color: Colors.black, fontSize: 18),
                     )
                   ],
@@ -490,19 +570,19 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   //       ),
   //     );
 
-  Widget buildAppBar(double shrinkOffset) => Opacity(
+  Widget buildAppBar(double shrinkOffset, String role, DateTime now) => Opacity(
         opacity: appear(shrinkOffset),
         child: AppBar(
-          backgroundColor: Colors.red.shade100,
+          backgroundColor: role == 'Husband' ? Colors.blue.shade100 :Colors.red.shade100,
           leading: Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Image.asset('assets/female_stitch.png'),
+            child: Image.asset(role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
           ),
           actions: <Widget>[
             Row(
               children: [
                 Text(
-                  '21',
+                  now.day.toString(),
                   style: const TextStyle(color: Colors.black, fontSize: 36),
                 ),
                 const SizedBox(width: 10),
@@ -511,11 +591,11 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Tuesday",
+                      weekdays[now.weekday % 7],
                       style: const TextStyle(color: Colors.black, fontSize: 16),
                     ),
                     Text(
-                      'Feb 2023',
+                      '${weekmonths[now.month % 12]} ${now.year}',
                       style: const TextStyle(color: Colors.black, fontSize: 16),
                     )
                   ],
@@ -564,12 +644,12 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 
-  Widget buildText(double shrinkOffset) {
+  Widget buildText(double shrinkOffset, String userName) {
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: Center(
         child: Text(
-          "Hi Jill, how is your day? ",
+          "Hi $userName, how is your day? ",
           style: TextStyle(fontSize: 20),
         ),
       ),

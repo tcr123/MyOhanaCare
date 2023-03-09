@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 
 import '../../provider/auth_provider.dart';
 
-class tips extends StatefulWidget {
-  const tips({super.key});
+class tips2 extends StatefulWidget {
+  const tips2({super.key});
 
   @override
-  State<tips> createState() => _tipsState();
+  State<tips2> createState() => _tips2State();
 }
 
-class _tipsState extends State<tips> {
+class _tips2State extends State<tips2> {
   var weekdays = [
     'Sunday',
     'Monday',
@@ -94,7 +94,7 @@ class _tipsState extends State<tips> {
                   child: Row(
                     children: [
                       Image.asset("assets/Pregnant.png"),
-                      const Text("First Trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
+                      const Text("Second Trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ),
@@ -105,70 +105,84 @@ class _tipsState extends State<tips> {
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your uterus is expanding: ",
+                    "Your baby's hair and nails start to grow: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "During the first trimester, your uterus grows rapidly to accommodate your growing baby. By the end of the first trimester, your uterus will have doubled in size.",
+                    "During the second trimester, your baby's hair and nails begin to grow. This is also when your baby's eyelashes and eyebrows start to form.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby's taste buds are forming: ",
+                    "Your baby can hear your voice: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Believe it or not, your baby's taste buds start to form around week 8 of pregnancy! This means that your baby may be able to taste the foods you eat through the amniotic fluid.",
+                    "Around week 20, your baby's ears are developed enough that they can start to hear sounds outside of the womb. Talking to your baby and playing music may be soothing for both you and your baby.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your blood volume increases: ",
+                    "You may start to experience (pregnancy brain): ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "To support your growing baby, your body increases its blood volume by up to 50% during pregnancy. This can cause you to feel warmer than usual and may result in swollen feet and ankles.",
+                    "Many women report feeling forgetful or absent-minded during pregnancy, and this is sometimes referred to as (pregnancy brain.) Hormonal changes and fatigue may contribute to this phenomenon.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby can move: ",
+                    "Your belly button may change: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Although you may not be able to feel it yet, your baby starts moving around during the first trimester. By the end of the first trimester, your baby is about 3 inches long and can make small, jerky movements.",
+                    "As your uterus grows, your belly button may start to pop out. This is usually temporary and should return to its normal position after pregnancy.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby's sex is determined: ",
+                    "You may experience Braxton Hicks contractions: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Although you won't be able to find out your baby's sex until later in pregnancy, the sex is actually determined at conception! The egg from the mother contains an X chromosome, while the sperm from the father can contain either an X or a Y chromosome, which determines whether the baby will be male or female.",
+                    "Braxton Hicks contractions are \"practice\" contractions that your body may experience in preparation for labor. They are usually painless and can start as early as the second trimester.",
+                    style: TextStyle(fontWeight: FontWeight.w400),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+                  child: Text(
+                    "You may have vivid dreams: ",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+                  child: Text(
+                    "Hormonal changes and anxiety about pregnancy and motherhood can cause some women to have very vivid dreams during the second trimester. These dreams may be strange or even disturbing, but they are usually harmless.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 )

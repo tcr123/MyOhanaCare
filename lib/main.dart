@@ -9,6 +9,7 @@ import 'package:ohana_care/provider/models_provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting().then((_) => runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: AuthProvider()),
     ChangeNotifierProvider.value(value: CalendarProvider()),
