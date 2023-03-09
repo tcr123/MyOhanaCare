@@ -8,6 +8,7 @@ import 'package:ohana_care/screen/homepage/homepage.dart';
 import 'package:ohana_care/screen/location/multimarker.dart';
 import 'package:ohana_care/screen/profile/profile.dart';
 import 'package:provider/provider.dart';
+import 'package:ohana_care/screen/Education/Education.dart';
 
 class MyOhanaCare extends StatefulWidget {
   const MyOhanaCare({super.key});
