@@ -92,6 +92,32 @@ flutter:
      - assets/home.png
      - assets/edit.png
      - assets/education_home.png
+     - assets/Family1.png
+     - assets/Family2.png
+     - assets/Family3.png
+     - assets/Family4.png
+     - assets/Nutrition1.png
+     - assets/Nutrition2.png
+     - assets/Nutrition3.png
+     - assets/Nutrition4.png
+     - assets/Prenatal1.png
+     - assets/Prenatal2.png
+     - assets/Prenatal3.png
+     - assets/Prenatal4.png
+     - assets/Menstrual1.png
+     - assets/Menstrual2.png
+     - assets/Menstrual3.png
+     - assets/Menstrual4.png
+     - assets/Mental1.png
+     - assets/Mental2.png
+     - assets/Mental3.png
+     - assets/Physical1.png
+     - assets/Physical2.png
+     - assets/Physical3.png
+     - assets/Physical4.png
+     - assets/Medical1.png
+     - assets/Emotional1.png
+     
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
