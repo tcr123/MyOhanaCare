@@ -255,21 +255,22 @@ class _CalendarState extends State<Calendar> {
           encodeMapForSymptoms(_futureUserSymptoms);
         });
       }),
-      calendarProvider
-          .fetchUserPregnancy(authProvider.getUserData.id)
-          .then((value) {
-        if (value == null) return;
-        setState(() {
-          _futurePregnancyDate = value;
-          encodeMapForPregnancy(_futurePregnancyDate!);
-        });
-      })
+      // calendarProvider
+      //     .fetchUserPregnancy(authProvider.getUserData.id)
+      //     .then((value) {
+      //   if (value == null) return;
+      //   setState(() {
+      //     _futurePregnancyDate = value;
+      //     encodeMapForPregnancy(_futurePregnancyDate!);
+      //   });
+      // })
     ]).then((value) {
       print(_events);
     });
   }
 
   _showToolsForCalendar() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -280,7 +281,8 @@ class _CalendarState extends State<Calendar> {
               content: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: MediaQuery.of(context).size.height * 0.25,
-                child: Column(
+                child: authProvider.getUserData.role == 'Wife'
+                  ? Column(
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                     Row(
@@ -371,6 +373,22 @@ class _CalendarState extends State<Calendar> {
                       ],
                     ),
                   ],
+                ) : Center(
+                  child: InkWell(
+                    onTap: () async {
+                      final result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const EventPush()));
+                      if (result == 'success') {
+                        onRefresh();
+                      }
+                    },
+                    child: const CalendarWorkSelection(
+                      imageAddress: 'assets/icons/event.png',
+                      title: 'Event',
+                    ),
+                  ),
                 ),
               ),
             ));
