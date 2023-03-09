@@ -27,12 +27,11 @@ class CalendarProvider extends ChangeNotifier {
           "Authorization": "Bearer $token"
         });
       var jsonResponse = jsonDecode(response.body);
-      // print(jsonResponse);
 
       List<EventData> userEvent = [];
 
       if(jsonResponse['message']=="200 success"){
-        for (var data in jsonResponse['data']) {
+        for (var data in jsonResponse['data']['calendar']['event']) {
           DateTime startDate = DateTime.parse(data['start']);
           DateTime endDate = DateTime.parse(data['end']);
           EventData newData = EventData(
@@ -336,7 +335,7 @@ class CalendarProvider extends ChangeNotifier {
           'start': '${symptomsDate.toIso8601String()}Z'
         }));
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
+      //print(jsonResponse);
 
       if(jsonResponse['message']=="200 success"){
         
