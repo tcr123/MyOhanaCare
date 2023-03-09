@@ -5,6 +5,9 @@ import 'package:ohana_care/screen/homepage/homepage.dart';
 
 import '../../widget/EducationList.dart';
 import '../../widget/EducationCard.dart';
+import 'package:ohana_care/screen/auth/sign_in.dart';
+import 'package:provider/provider.dart';
+import 'package:ohana_care/provider/auth_provider.dart';
 
 class Education extends StatefulWidget {
   const Education({super.key});
@@ -20,6 +23,11 @@ class _EducationState extends State<Education> {
 
   @override
   void initState() {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    List<Information> educationlist = authProvider.getUserData.role == "Husband"
+        ? educationlistH
+        : educationlistW;
     super.initState();
     for (var info in educationlist) {
       categories.add(info.category); // Add each category to the Set
@@ -28,6 +36,12 @@ class _EducationState extends State<Education> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+    List<Information> educationlist = authProvider.getUserData.role == "Husband"
+        ? educationlistH
+        : educationlistW;
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Column(
