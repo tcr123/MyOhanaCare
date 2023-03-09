@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ohana_care/main.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
+import 'package:ohana_care/screen/calendar/calendar.dart';
 import 'package:ohana_care/screen/homepage/editSOS.dart';
 import 'package:ohana_care/screen/homepage/tips2.dart';
 import 'package:ohana_care/screen/homepage/tips3.dart';
@@ -83,7 +84,7 @@ class _HomePageState extends State<HomePage> {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!),
-                dailyEvents(_futureUserEvents),
+                dailyEvents(_futureUserEvents, context),
                 education(context),
               ]),
             ),
@@ -247,7 +248,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget dailyEvents(List<EventData> events) {
+Widget dailyEvents(List<EventData> events, BuildContext context) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: Card(
@@ -269,26 +270,16 @@ Widget dailyEvents(List<EventData> events) {
               style: TextStyle(color: Colors.black, fontSize: 20),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0),
-            child: Row(
-              children: [
-                Image.asset("assets/Pregnant.png"),
-                Text("Doctor's Appointment"),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 4, 20, 4),
-            child: Divider(color: Colors.red.shade200),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 15, 4),
-            child: Row(
-              children: [
-                Image.asset("assets/Pregnant.png"),
-                Text("Company's Meeting"),
-              ],
+          ...events.map((event) =>
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0, bottom: 10),
+              child: Row(
+                children: [
+                  Image.asset(event.role == 'Husband' ? "assets/icons/event_male.png" : "assets/icons/event.png", width: 32, height: 32),
+                  const SizedBox(width: 10),
+                  Text(event.eventName),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -311,7 +302,9 @@ Widget dailyEvents(List<EventData> events) {
                   child: TextButton(
                     child: const Text('View Details',
                         style: TextStyle(color: Colors.black87)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Calendar()));
+                    },
                   ),
                 ),
               ],

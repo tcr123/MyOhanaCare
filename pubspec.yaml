@@ -77,6 +77,7 @@ flutter:
      - assets/female_stitch.svg
      - assets/male_stitch.svg
      - assets/icons/event.png
+     - assets/icons/event_male.png
      - assets/icons/period.png
      - assets/icons/pregnant.png
      - assets/icons/symptoms.png
