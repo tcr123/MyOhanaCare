@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:ohana_care/main.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
 import 'package:ohana_care/screen/homepage/editSOS.dart';
+import 'package:ohana_care/screen/homepage/tips2.dart';
+import 'package:ohana_care/screen/homepage/tips3.dart';
 import 'package:provider/provider.dart';
 import '../../model/event.dart';
+import '../../model/pregnancy_data.dart';
 import '../../provider/auth_provider.dart';
 import '../../provider/calendar_provider.dart';
 import '../../widget/EducationHome.dart';
@@ -26,6 +29,29 @@ class _HomePageState extends State<HomePage> {
   final number = '+60176865849';
 
   List<EventData> _futureUserEvents = [];
+  PregnancyData? _futurePregnancyDate;
+
+  @override
+  void initState() {
+    super.initState();
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final calendarProvider = Provider.of<CalendarProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      calendarProvider.fetchUserTodayEvent(authProvider.getUserData.id).then((value) {
+        setState(() {
+          _futureUserEvents = value;
+        });
+      });
+      calendarProvider
+          .fetchUserPregnancy(authProvider.getUserData.id)
+          .then((value) {
+        if (value == null) return;
+        setState(() {
+          _futurePregnancyDate = value;
+        });
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +82,8 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(vertical: 30),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                dailyHighlight(),
-                dailyEvents(),
+                if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!),
+                dailyEvents(_futureUserEvents),
                 education(context),
               ]),
             ),
@@ -67,7 +93,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget dailyHighlight() {
+  Widget dailyHighlight(PregnancyData pregnancyData) {
+    DateTime startDay = DateTime.parse(pregnancyData.lastDayPeriod);
+    startDay = DateTime.utc(startDay.year, startDay.month, startDay.day);
+    DateTime lastDay = DateTime.parse(pregnancyData.expectedDeliveryDate);
+    lastDay = DateTime.utc(lastDay.year, lastDay.month, lastDay.day);
+    DateTime now = DateTime.now();
+
+    String phase = "";
+    Duration checkingPhase = now.difference(startDay);
+    if ((checkingPhase.inDays / 7) + 1 >= 1 && (checkingPhase.inDays / 7) + 1 <= 13) {
+      phase = "first trimester";
+    } else if ((checkingPhase.inDays / 7) + 1 >= 14 && (checkingPhase.inDays / 7) + 1 <= 27) {
+      phase = "second trimester";
+    } else if ((checkingPhase.inDays / 7) + 1 >= 28 && (checkingPhase.inDays / 7) + 1 <= 40) {
+      phase = "third trimester";
+    }
+    Duration weekLeft = lastDay.difference(now);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Card(
@@ -82,7 +124,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.fromLTRB(14, 12, 12, 12),
               child: Text(
                 'Daily Highlights',
@@ -94,7 +136,7 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 children: [
                   Image.asset("assets/Pregnant.png"),
-                  Text("Pregnancy Cycle"),
+                  const Text("Pregnancy Cycle"),
                 ],
               ),
             ),
@@ -102,7 +144,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.fromLTRB(40, 0, 20, 0),
+                  padding: const EdgeInsets.fromLTRB(40, 0, 20, 0),
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Color.fromRGBO(239, 154, 154, 1),
@@ -112,8 +154,8 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("20", style: TextStyle(color: Colors.black)),
-                          Text("Weeks", style: TextStyle(color: Colors.black)),
+                          Text(((weekLeft.inDays / 7).toInt() + 1).toString(), style: TextStyle(color: Colors.black)),
+                          const Text("Weeks", style: TextStyle(color: Colors.black)),
                         ],
                       ),
                     ),
@@ -128,13 +170,13 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.red.shade200,
                           fontWeight: FontWeight.w500),
                     ),
-                    Text("2nd Trimester"),
+                    Text(phase),
                     Text(""),
                     Text("WEEKS LEFT",
                         style: TextStyle(
                             color: Colors.red.shade200,
                             fontWeight: FontWeight.w500)),
-                    Text("20 weeks to go!"),
+                    Text("${((weekLeft.inDays / 7).toInt() + 1).toString()} weeks to go!"),
                   ],
                 )
               ],
@@ -178,10 +220,20 @@ class _HomePageState extends State<HomePage> {
                       child: const Text('More Tips >>',
                           style: TextStyle(color: Colors.black87)),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const tips()),
-                        );
+                        phase == 'first trimester' 
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const tips()),
+                          )
+                        : phase == 'second trimester'
+                        ? Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const tips2()),
+                          )
+                        : Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const tips3()),
+                          );
                       },
                     ),
                   ),
@@ -195,7 +247,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-Widget dailyEvents() {
+Widget dailyEvents(List<EventData> events) {
   return Padding(
     padding: const EdgeInsets.all(10.0),
     child: Card(

@@ -12,19 +12,13 @@ import '../model/event.dart';
 import '../model/weight_data.dart';
 
 class CalendarProvider extends ChangeNotifier {
-  List<EventData> todayEvent=[];
-
-  List<EventData> get getTodayEvent {
-    return todayEvent;
-  }
-
   String convertDateToISO(String time) {
     DateTime date2= DateFormat("hh:mma").parse(time); 
     List<String> temp = date2.toString().split(' ');
     return temp[1];
   }
 
-  Future<void> fetchUserTodayEvent(String token) async {
+  Future<List<EventData>> fetchUserTodayEvent(String token) async {
     try {
       var url = Uri.parse('https://sticheapi.vercel.app/api/event?today=true');
       var response = await http.get(url,
@@ -48,18 +42,17 @@ class CalendarProvider extends ChangeNotifier {
           );
           userEvent.add(newData);
         }
-        todayEvent = userEvent;
-        notifyListeners();
+        return userEvent;
       }
       else if (jsonResponse["message"] == "403 invalid") {
-        return;
+        return []; 
       } 
       else {
-        return;
+        return [];
       }
     } catch (error) {
       print(error);
-      return;
+      return [];
     }
   }
 

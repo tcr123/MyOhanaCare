@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 
 import '../../provider/auth_provider.dart';
 
-class tips extends StatefulWidget {
-  const tips({super.key});
+class tips3 extends StatefulWidget {
+  const tips3({super.key});
 
   @override
-  State<tips> createState() => _tipsState();
+  State<tips3> createState() => _tips3State();
 }
 
-class _tipsState extends State<tips> {
+class _tips3State extends State<tips3> {
   var weekdays = [
     'Sunday',
     'Monday',
@@ -94,7 +94,7 @@ class _tipsState extends State<tips> {
                   child: Row(
                     children: [
                       Image.asset("assets/Pregnant.png"),
-                      const Text("First Trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
+                      const Text("Third Trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ),
@@ -105,70 +105,70 @@ class _tipsState extends State<tips> {
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your uterus is expanding: ",
+                    "Your baby's brain is developing rapidly: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "During the first trimester, your uterus grows rapidly to accommodate your growing baby. By the end of the first trimester, your uterus will have doubled in size.",
+                    "During the third trimester, your baby's brain is developing rapidly, and will continue to do so after birth. Eating a healthy diet rich in nutrients like omega-3 fatty acids can help support your baby's brain development.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby's taste buds are forming: ",
+                    "Your baby may change positions: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Believe it or not, your baby's taste buds start to form around week 8 of pregnancy! This means that your baby may be able to taste the foods you eat through the amniotic fluid.",
+                    "By the end of the third trimester, most babies will have moved into a head-down position in preparation for birth. However, some babies may remain in a breech or transverse position, which may require a cesarean section delivery.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your blood volume increases: ",
+                    "You may start to feel \"nesting\" instincts: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "To support your growing baby, your body increases its blood volume by up to 50% during pregnancy. This can cause you to feel warmer than usual and may result in swollen feet and ankles.",
+                    "Many women experience a surge of energy and a strong urge to clean, organize, and prepare for their baby's arrival during the third trimester. This is often referred to as \"nesting.\"",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby can move: ",
+                    "Your baby's immune system is developing: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Although you may not be able to feel it yet, your baby starts moving around during the first trimester. By the end of the first trimester, your baby is about 3 inches long and can make small, jerky movements.",
+                    "In the last few weeks of pregnancy, your baby's immune system starts to develop as they are exposed to your antibodies through the placenta. This provides some protection against infections and illnesses in the first few months of life.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby's sex is determined: ",
+                    "You may experience false labor: ",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Although you won't be able to find out your baby's sex until later in pregnancy, the sex is actually determined at conception! The egg from the mother contains an X chromosome, while the sperm from the father can contain either an X or a Y chromosome, which determines whether the baby will be male or female.",
+                    "During the third trimester, you may experience Braxton Hicks contractions more frequently. These can sometimes be mistaken for real labor, but true labor contractions will become stronger and closer together over time.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 )

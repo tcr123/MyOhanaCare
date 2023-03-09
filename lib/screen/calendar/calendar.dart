@@ -255,15 +255,15 @@ class _CalendarState extends State<Calendar> {
           encodeMapForSymptoms(_futureUserSymptoms);
         });
       }),
-      // calendarProvider
-      //     .fetchUserPregnancy(authProvider.getUserData.id)
-      //     .then((value) {
-      //   if (value == null) return;
-      //   setState(() {
-      //     _futurePregnancyDate = value;
-      //     encodeMapForPregnancy(_futurePregnancyDate!);
-      //   });
-      // })
+      calendarProvider
+          .fetchUserPregnancy(authProvider.getUserData.id)
+          .then((value) {
+        if (value == null) return;
+        setState(() {
+          _futurePregnancyDate = value;
+          encodeMapForPregnancy(_futurePregnancyDate!);
+        });
+      })
     ]).then((value) {
       print(_events);
     });
