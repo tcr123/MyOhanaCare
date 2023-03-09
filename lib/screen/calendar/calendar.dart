@@ -612,6 +612,14 @@ class _CalendarState extends State<Calendar> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
+                                                  'By : ${event.role}',
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 14)),
+                                              const SizedBox(height: 5),
+                                              Text(
                                                   'Event Detail : ${event.eventName}',
                                                   style: const TextStyle(
                                                       color: Colors.black,
