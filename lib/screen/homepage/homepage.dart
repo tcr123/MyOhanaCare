@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohana_care/main.dart';
+import 'package:ohana_care/model/information.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
 import 'package:ohana_care/screen/calendar/calendar.dart';
 import 'package:ohana_care/screen/homepage/editSOS.dart';
@@ -355,7 +356,7 @@ Widget education(BuildContext context) {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return EducationHome(
-                title: "topic",
+                title: educationlistH[index],
               );
             },
           ),
@@ -650,7 +651,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
       child: Center(
         child: Text(
           "Hi $userName, how is your day? ",
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );
