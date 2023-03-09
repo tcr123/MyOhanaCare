@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ohana_care/main.dart';
+import 'package:ohana_care/model/information.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
 import 'package:ohana_care/screen/calendar/calendar.dart';
 import 'package:ohana_care/screen/homepage/editSOS.dart';
@@ -39,6 +40,7 @@ class _HomePageState extends State<HomePage> {
     final calendarProvider = Provider.of<CalendarProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_){
       calendarProvider.fetchUserTodayEvent(authProvider.getUserData.id).then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserEvents = value;
         });
@@ -47,6 +49,7 @@ class _HomePageState extends State<HomePage> {
           .fetchUserPregnancy(authProvider.getUserData.id)
           .then((value) {
         if (value == null) return;
+        if (!mounted) return;
         setState(() {
           _futurePregnancyDate = value;
         });
@@ -355,7 +358,7 @@ Widget education(BuildContext context) {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return EducationHome(
-                title: "topic",
+                title: educationlistH[index],
               );
             },
           ),
@@ -423,7 +426,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         ),
         Positioned(
           top: 90,
-          left: 18,
+          left: 10,
           right: 280,
           child: EditContactButton(shrinkOffset, context),
         ),
@@ -431,7 +434,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           top: top,
           left: 20,
           right: 20,
-          child: buildFloating(shrinkOffset),
+          child: buildFloating(shrinkOffset, context),
         ),
         Positioned(
           top: 90,
@@ -493,7 +496,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     bool res = await FlutterPhoneDirectCaller.callNumber(number) as bool;
   }
 
-  Widget buildFloating(double shrinkOffset) {
+  Widget buildFloating(double shrinkOffset, BuildContext context) {
     DateTime now = DateTime.now();
     return Opacity(
       opacity: disappear(shrinkOffset),
@@ -505,7 +508,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         child: Row(
           children: [
             Image.asset('assets/home.png'),
-            const SizedBox(width: 90),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.18),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -533,7 +536,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                     )
                   ],
                 ),
-                const SizedBox(width: 20),
+                const SizedBox(width: 10),
               ],
             )
           ],
@@ -623,7 +626,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           color: Colors.white,
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(4.0),
           child: Center(
             child: AnimatedTextKit(
               repeatForever: true,
@@ -650,7 +653,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
       child: Center(
         child: Text(
           "Hi $userName, how is your day? ",
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
       ),
     );
@@ -660,7 +663,6 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: Container(
-        height: 35,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
           color: Colors.red.shade100, // set the background color
@@ -669,24 +671,20 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
             width: 2, // set the border width
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Row(
-            children: [
-              Image.asset("assets/edit.png"),
-              TextButton(
-                child: const Text('Edit SOS',
-                    style:
-                        TextStyle(color: Color.fromARGB(221, 203, 150, 150))),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => editSOS()),
-                  );
-                },
-              ),
-            ],
-          ),
+        child: Row(
+          children: [
+            TextButton(
+              child: const Text('Edit SOS',
+                  style:
+                      TextStyle(color: Color.fromARGB(221, 203, 150, 150), fontSize: 12)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => editSOS()),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );

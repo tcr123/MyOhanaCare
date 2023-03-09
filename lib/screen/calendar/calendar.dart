@@ -173,6 +173,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserPeriod(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserPeriod = value;
           encodeMapForPeriod(_futureUserPeriod);
@@ -181,6 +182,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserEvent(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;    
         setState(() {
           _futureUserEvents = value;
           encodeMapForEvent(_futureUserEvents);
@@ -189,6 +191,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserWeight(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserWeight = value;
           encodeMapForWeight(_futureUserWeight);
@@ -197,6 +200,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserSymptoms(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserSymptoms = value;
           encodeMapForSymptoms(_futureUserSymptoms);
@@ -206,6 +210,7 @@ class _CalendarState extends State<Calendar> {
           .fetchUserPregnancy(authProvider.getUserData.id)
           .then((value) {
         if (value == null) return;
+        if (!mounted) return;
         setState(() {
           _futurePregnancyDate = value;
           encodeMapForPregnancy(_futurePregnancyDate!);
@@ -226,6 +231,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserPeriod(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserPeriod = value;
           encodeMapForPeriod(_futureUserPeriod);
@@ -234,6 +240,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserEvent(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserEvents = value;
           encodeMapForEvent(_futureUserEvents);
@@ -242,6 +249,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserWeight(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserWeight = value;
           encodeMapForWeight(_futureUserWeight);
@@ -250,6 +258,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserSymptoms(authProvider.getUserData.id)
           .then((value) {
+        if (!mounted) return;
         setState(() {
           _futureUserSymptoms = value;
           encodeMapForSymptoms(_futureUserSymptoms);
@@ -259,6 +268,7 @@ class _CalendarState extends State<Calendar> {
           .fetchUserPregnancy(authProvider.getUserData.id)
           .then((value) {
         if (value == null) return;
+        if (!mounted) return;
         setState(() {
           _futurePregnancyDate = value;
           encodeMapForPregnancy(_futurePregnancyDate!);
