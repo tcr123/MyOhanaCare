@@ -16,6 +16,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'tips.dart';
+import '../../provider/auth_provider.dart';
+import '../../widget/EducationList.dart';
+import '../../widget/EducationCard.dart';
+import 'package:ohana_care/provider/education_provider.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,6 +34,7 @@ class _HomePageState extends State<HomePage> {
   bool _snap = false;
   bool _floating = false;
   final number = '+60176865849';
+  List<Information> futureInformation =[]; 
 
   List<EventData> _futureUserEvents = [];
   PregnancyData? _futurePregnancyDate;
@@ -37,6 +43,15 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final educationProvider =
+        Provider.of<EducationProvider>(context, listen: false);
+
+    educationProvider.fetchEducation(authProvider.getUserData.id).then((value){
+      setState(() {
+        futureInformation=value;
+        
+      });
+    });
     final calendarProvider = Provider.of<CalendarProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_){
       calendarProvider.fetchUserTodayEvent(authProvider.getUserData.id).then((value) {
@@ -88,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               delegate: SliverChildListDelegate([
                 if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!),
                 dailyEvents(_futureUserEvents, context),
-                education(context),
+                education(context, futureInformation),
               ]),
             ),
           ),
@@ -319,7 +334,7 @@ Widget dailyEvents(List<EventData> events, BuildContext context) {
   );
 }
 
-Widget education(BuildContext context) {
+Widget education(BuildContext context, List<Information> futureInformation) {
   return Padding(
     padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
     child: Column(
@@ -354,11 +369,12 @@ Widget education(BuildContext context) {
         Container(
           height: 230,
           child: ListView.builder(
-            itemCount: 4,
+            itemCount: futureInformation.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
+              Information information = futureInformation[index];
               return EducationHome(
-                title: educationlistH[index],
+                title: information,
               );
             },
           ),
