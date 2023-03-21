@@ -19,6 +19,7 @@ class AuthProvider extends ChangeNotifier {
     return education;
   }
 
+  
 
   Future<User?> connectYourSpouse(String email, String token) async {
     try {

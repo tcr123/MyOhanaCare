@@ -6,6 +6,7 @@ import 'package:ohana_care/screen/auth/sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:ohana_care/provider/chat_provider.dart';
 import 'package:ohana_care/provider/models_provider.dart';
+import 'package:ohana_care/provider/education_provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
@@ -13,6 +14,7 @@ void main() {
   initializeDateFormatting().then((_) => runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: AuthProvider()),
     ChangeNotifierProvider.value(value: CalendarProvider()),
+    ChangeNotifierProvider.value(value: EducationProvider()),
   ], child: const MyApp())));
   EasyLoading.instance
     ..indicatorType = EasyLoadingIndicatorType.dualRing

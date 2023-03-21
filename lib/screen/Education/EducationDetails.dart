@@ -37,7 +37,7 @@ class EducationDetails extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
+                child: Image.network(
                   information.img,
                   width: screenWidth,
                   fit: BoxFit.fitWidth,

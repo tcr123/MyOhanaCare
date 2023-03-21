@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import "package:ohana_care/model/information.dart";
 import 'package:ohana_care/screen/Education/EducationDetails.dart';
 import 'package:ohana_care/screen/homepage/homepage.dart';
+import 'package:provider/provider.dart';
 
+import '../../provider/auth_provider.dart';
 import '../../widget/EducationList.dart';
 import '../../widget/EducationCard.dart';
-import 'package:ohana_care/screen/auth/sign_in.dart';
-import 'package:provider/provider.dart';
-import 'package:ohana_care/provider/auth_provider.dart';
+import 'package:ohana_care/provider/education_provider.dart';
 
 class Education extends StatefulWidget {
   const Education({super.key});
@@ -17,31 +17,32 @@ class Education extends StatefulWidget {
 }
 
 class _EducationState extends State<Education> {
+
+  List<Information> futureInformation =[]; 
+
   String selectedTopic = '';
   int selectedIndex = -1;
   Set<String> categories = Set(); // Define a Set to hold unique categories
 
   @override
   void initState() {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
-    List<Information> educationlist = authProvider.getUserData.role == "Husband"
-        ? educationlistH
-        : educationlistW;
     super.initState();
-    for (var info in educationlist) {
-      categories.add(info.category); // Add each category to the Set
-    }
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final educationProvider =
+        Provider.of<EducationProvider>(context, listen: false);
+
+    educationProvider.fetchEducation(authProvider.getUserData.id).then((value){
+      setState(() {
+        futureInformation=value;
+        for (var info in futureInformation) {
+          categories.add(info.category); // Add each category to the Set
+        }
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
-    List<Information> educationlist = authProvider.getUserData.role == "Husband"
-        ? educationlistH
-        : educationlistW;
-
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Column(
@@ -107,9 +108,9 @@ class _EducationState extends State<Education> {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
-                  itemCount: educationlist.length,
+                  itemCount: futureInformation.length,
                   itemBuilder: (context, index) {
-                    Information information = educationlist[index];
+                    Information information = futureInformation[index];
 
                     if (selectedTopic.isEmpty ||
                         selectedTopic == information.category) {

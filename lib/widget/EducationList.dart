@@ -25,7 +25,7 @@ class EducationList extends StatelessWidget {
           Container(
             padding: const EdgeInsets.only(top: 3.0),
             height: 150,
-            child: Image.asset(logoImagePath),
+            child: Image.network(logoImagePath),
           ),
           Column(
             children: [
