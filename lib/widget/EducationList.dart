@@ -1,11 +1,13 @@
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-
 import 'package:flutter/material.dart';
+import '../model/information.dart';
 
 class EducationList extends StatelessWidget {
   final String title;
   final String logoImagePath;
+  List<Information> futureInformation =[]; 
+
 
   EducationList({
     required this.logoImagePath,

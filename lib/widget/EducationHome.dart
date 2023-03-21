@@ -26,7 +26,7 @@ class EducationHome extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(top: 3.0),
               height: 150,
-              child: Image.asset(title.img),
+              child: Image.network(title.img),
             ),
             Column(
               children: [
