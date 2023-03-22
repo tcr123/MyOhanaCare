@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   bool _pinned = true;
   bool _snap = false;
   bool _floating = false;
-  final number = '+60176865849';
+  final number = '+999';
 
   List<EventData> _futureUserEvents = [];
   PregnancyData? _futurePregnancyDate;
@@ -37,9 +37,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-    final calendarProvider = Provider.of<CalendarProvider>(context, listen: false);
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      calendarProvider.fetchUserTodayEvent(authProvider.getUserData.id).then((value) {
+    final calendarProvider =
+        Provider.of<CalendarProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      calendarProvider
+          .fetchUserTodayEvent(authProvider.getUserData.id)
+          .then((value) {
         if (!mounted) return;
         setState(() {
           _futureUserEvents = value;
@@ -86,7 +89,8 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(vertical: 30),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!),
+                if (_futurePregnancyDate != null)
+                  dailyHighlight(_futurePregnancyDate!),
                 dailyEvents(_futureUserEvents, context),
                 education(context),
               ]),
@@ -106,11 +110,14 @@ class _HomePageState extends State<HomePage> {
 
     String phase = "";
     Duration checkingPhase = now.difference(startDay);
-    if ((checkingPhase.inDays / 7) + 1 >= 1 && (checkingPhase.inDays / 7) + 1 <= 13) {
+    if ((checkingPhase.inDays / 7) + 1 >= 1 &&
+        (checkingPhase.inDays / 7) + 1 <= 13) {
       phase = "first trimester";
-    } else if ((checkingPhase.inDays / 7) + 1 >= 14 && (checkingPhase.inDays / 7) + 1 <= 27) {
+    } else if ((checkingPhase.inDays / 7) + 1 >= 14 &&
+        (checkingPhase.inDays / 7) + 1 <= 27) {
       phase = "second trimester";
-    } else if ((checkingPhase.inDays / 7) + 1 >= 28 && (checkingPhase.inDays / 7) + 1 <= 40) {
+    } else if ((checkingPhase.inDays / 7) + 1 >= 28 &&
+        (checkingPhase.inDays / 7) + 1 <= 40) {
       phase = "third trimester";
     }
     Duration weekLeft = lastDay.difference(now);
@@ -158,8 +165,10 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(((weekLeft.inDays / 7).toInt() + 1).toString(), style: TextStyle(color: Colors.black)),
-                          const Text("Weeks", style: TextStyle(color: Colors.black)),
+                          Text(((weekLeft.inDays / 7).toInt() + 1).toString(),
+                              style: TextStyle(color: Colors.black)),
+                          const Text("Weeks",
+                              style: TextStyle(color: Colors.black)),
                         ],
                       ),
                     ),
@@ -180,7 +189,8 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                             color: Colors.red.shade200,
                             fontWeight: FontWeight.w500)),
-                    Text("${((weekLeft.inDays / 7).toInt() + 1).toString()} weeks to go!"),
+                    Text(
+                        "${((weekLeft.inDays / 7).toInt() + 1).toString()} weeks to go!"),
                   ],
                 )
               ],
@@ -224,20 +234,23 @@ class _HomePageState extends State<HomePage> {
                       child: const Text('More Tips >>',
                           style: TextStyle(color: Colors.black87)),
                       onPressed: () {
-                        phase == 'first trimester' 
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const tips()),
-                          )
-                        : phase == 'second trimester'
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const tips2()),
-                          )
-                        : Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const tips3()),
-                          );
+                        phase == 'first trimester'
+                            ? Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const tips()),
+                              )
+                            : phase == 'second trimester'
+                                ? Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const tips2()),
+                                  )
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => const tips3()),
+                                  );
                       },
                     ),
                   ),
@@ -273,12 +286,17 @@ Widget dailyEvents(List<EventData> events, BuildContext context) {
               style: TextStyle(color: Colors.black, fontSize: 20),
             ),
           ),
-          ...events.map((event) =>
-            Padding(
+          ...events.map(
+            (event) => Padding(
               padding: const EdgeInsets.only(left: 20.0, bottom: 10),
               child: Row(
                 children: [
-                  Image.asset(event.role == 'Husband' ? "assets/icons/event_male.png" : "assets/icons/event.png", width: 32, height: 32),
+                  Image.asset(
+                      event.role == 'Husband'
+                          ? "assets/icons/event_male.png"
+                          : "assets/icons/event.png",
+                      width: 32,
+                      height: 32),
                   const SizedBox(width: 10),
                   Text(event.eventName),
                 ],
@@ -306,7 +324,8 @@ Widget dailyEvents(List<EventData> events, BuildContext context) {
                     child: const Text('View Details',
                         style: TextStyle(color: Colors.black87)),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Calendar()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Calendar()));
                     },
                   ),
                 ),
@@ -370,7 +389,7 @@ Widget education(BuildContext context) {
 
 class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
-  final number = '+60176865849';
+  final number = '+999';
 
   CustomSliverDelegate({
     required this.expandedHeight,
@@ -411,7 +430,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
       fit: StackFit.expand,
       children: [
         buildBackground(shrinkOffset, authProvider.getUserData.role),
-        buildAppBar(shrinkOffset, authProvider.getUserData.role, DateTime.now()),
+        buildAppBar(
+            shrinkOffset, authProvider.getUserData.role, DateTime.now()),
         Positioned(
           top: 50,
           left: 20,
@@ -426,8 +446,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         ),
         Positioned(
           top: 90,
-          left: 10,
-          right: 280,
+          left: 20,
+          right: 300,
           child: EditContactButton(shrinkOffset, context),
         ),
         Positioned(
@@ -451,9 +471,9 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
       children: [
         CircleAvatar(
           backgroundColor: Colors.white,
-          backgroundImage: role == 'Husband' 
-            ? const AssetImage('assets/male_stitch.png')
-            : const AssetImage('assets/female_stitch.png'),
+          backgroundImage: role == 'Husband'
+              ? const AssetImage('assets/male_stitch.png')
+              : const AssetImage('assets/female_stitch.png'),
           radius: 50,
         ),
         Container(
@@ -486,7 +506,10 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         child: CircleAvatar(
           backgroundColor: Colors.white,
           radius: 90,
-          child: Center(child: Image.asset(role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png")),
+          child: Center(
+              child: Image.asset(role == 'Husband'
+                  ? "assets/male_stitch.png"
+                  : "assets/female_stitch.png")),
         ),
       ),
     );
@@ -576,10 +599,13 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   Widget buildAppBar(double shrinkOffset, String role, DateTime now) => Opacity(
         opacity: appear(shrinkOffset),
         child: AppBar(
-          backgroundColor: role == 'Husband' ? Colors.blue.shade100 :Colors.red.shade100,
+          backgroundColor:
+              role == 'Husband' ? Colors.blue.shade100 : Colors.red.shade100,
           leading: Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Image.asset(role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
+            child: Image.asset(role == 'Husband'
+                ? "assets/male_stitch.png"
+                : "assets/female_stitch.png"),
           ),
           actions: <Widget>[
             Row(
@@ -675,8 +701,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           children: [
             TextButton(
               child: const Text('Edit SOS',
-                  style:
-                      TextStyle(color: Color.fromARGB(221, 203, 150, 150), fontSize: 12)),
+                  style: TextStyle(
+                      color: Color.fromARGB(221, 203, 150, 150), fontSize: 12)),
               onPressed: () {
                 Navigator.push(
                   context,

@@ -9,6 +9,7 @@ import 'package:ohana_care/screen/location/multimarker.dart';
 import 'package:ohana_care/screen/profile/profile.dart';
 import 'package:provider/provider.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
+import 'package:ohana_care/voicegpt/chatScreen.dart';
 
 class MyOhanaCare extends StatefulWidget {
   const MyOhanaCare({super.key});
@@ -66,7 +67,7 @@ class _MyOhanaCareState extends State<MyOhanaCare> {
           print("pressed");
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatScreen()),
+            MaterialPageRoute(builder: (context) => ChtScreen()),
           );
         },
       ),

@@ -182,7 +182,7 @@ class _CalendarState extends State<Calendar> {
       calendarProvider
           .fetchUserEvent(authProvider.getUserData.id)
           .then((value) {
-        if (!mounted) return;    
+        if (!mounted) return;
         setState(() {
           _futureUserEvents = value;
           encodeMapForEvent(_futureUserEvents);
@@ -292,44 +292,108 @@ class _CalendarState extends State<Calendar> {
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: MediaQuery.of(context).size.height * 0.25,
                 child: authProvider.getUserData.role == 'Wife'
-                  ? Column(
-                  children: [
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            final result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Period()));
-                            if (result == 'success') {
-                              onRefresh();
-                            }
-                          },
-                          child: const CalendarWorkSelection(
-                            imageAddress: 'assets/icons/period.png',
-                            title: 'Period',
+                    ? Column(
+                        children: [
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  final result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Period()));
+                                  if (result == 'success') {
+                                    onRefresh();
+                                  }
+                                },
+                                child: const CalendarWorkSelection(
+                                  imageAddress: 'assets/icons/period.png',
+                                  title: 'Period',
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const PregnancyCalculation()));
+                                  if (result == 'success') {
+                                    onRefresh();
+                                  }
+                                },
+                                child: const CalendarWorkSelection(
+                                  imageAddress: 'assets/icons/pregnant.png',
+                                  title: 'Pregnancy',
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const EventPush()));
+                                  if (result == 'success') {
+                                    onRefresh();
+                                  }
+                                },
+                                child: const CalendarWorkSelection(
+                                  imageAddress: 'assets/icons/event.png',
+                                  title: 'Event',
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            final result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const PregnancyCalculation()));
-                            if (result == 'success') {
-                              onRefresh();
-                            }
-                          },
-                          child: const CalendarWorkSelection(
-                            imageAddress: 'assets/icons/pregnant.png',
-                            title: 'Pregnancy',
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  final result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Symptoms()));
+                                  if (result == 'success') {
+                                    onRefresh();
+                                  }
+                                },
+                                child: const CalendarWorkSelection(
+                                  imageAddress: 'assets/icons/symptoms.png',
+                                  title: 'Symptoms',
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Weight()));
+                                  if (result == 'success') {
+                                    onRefresh();
+                                  }
+                                },
+                                child: const CalendarWorkSelection(
+                                  imageAddress: 'assets/icons/weight.png',
+                                  title: 'Weight',
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                        InkWell(
+                        ],
+                      )
+                    : Center(
+                        child: InkWell(
                           onTap: () async {
                             final result = await Navigator.push(
                                 context,
@@ -340,66 +404,11 @@ class _CalendarState extends State<Calendar> {
                             }
                           },
                           child: const CalendarWorkSelection(
-                            imageAddress: 'assets/icons/event.png',
+                            imageAddress: 'assets/icons/event_male.png',
                             title: 'Event',
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            final result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Symptoms()));
-                            if (result == 'success') {
-                              onRefresh();
-                            }
-                          },
-                          child: const CalendarWorkSelection(
-                            imageAddress: 'assets/icons/symptoms.png',
-                            title: 'Symptoms',
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () async {
-                            final result = await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Weight()));
-                            if (result == 'success') {
-                              onRefresh();
-                            }
-                          },
-                          child: const CalendarWorkSelection(
-                            imageAddress: 'assets/icons/weight.png',
-                            title: 'Weight',
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ) : Center(
-                  child: InkWell(
-                    onTap: () async {
-                      final result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const EventPush()));
-                      if (result == 'success') {
-                        onRefresh();
-                      }
-                    },
-                    child: const CalendarWorkSelection(
-                      imageAddress: 'assets/icons/event.png',
-                      title: 'Event',
-                    ),
-                  ),
-                ),
+                      ),
               ),
             ));
   }
@@ -434,7 +443,9 @@ class _CalendarState extends State<Calendar> {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kRed,
+        backgroundColor: authProvider.getUserData.role == 'Husband'
+            ? Colors.blue.shade100
+            : Colors.red.shade100,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image(
@@ -621,8 +632,7 @@ class _CalendarState extends State<Calendar> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                  'By : ${event.role}',
+                                              Text('By : ${event.role}',
                                                   style: const TextStyle(
                                                       color: Colors.black,
                                                       fontWeight:

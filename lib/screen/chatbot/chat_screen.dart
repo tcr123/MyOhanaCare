@@ -8,6 +8,7 @@ import 'package:ohana_care/screen/chatbot/custom_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -21,6 +22,26 @@ class _ChatScreenState extends State<ChatScreen> {
 
   late TextEditingController _textEditingController;
   late ScrollController scrollController;
+
+  final stt.SpeechToText _speech = stt.SpeechToText();
+  bool _isListening = false;
+  String _text = '';
+
+  Future<void> initSpeechState() async {
+    bool available = await _speech.initialize(
+      onStatus: (status) => print('onStatus: $status'),
+      onError: (error) => print('onError: $error'),
+    );
+    if (available) {
+      setState(() => _isListening = true);
+      _speech.listen(
+        onResult: (result) => setState(() {
+          _text = result.recognizedWords;
+          _textEditingController.text = _text;
+        }),
+      );
+    }
+  }
 
   late FocusNode focusNode;
   @override
@@ -128,7 +149,21 @@ class _ChatScreenState extends State<ChatScreen> {
                       icon: const Icon(
                         Icons.send,
                         color: Colors.white,
-                      ))
+                      )),
+                  IconButton(
+                    onPressed: () {
+                      if (_isListening) {
+                        _speech.stop();
+                        setState(() => _isListening = false);
+                      } else {
+                        initSpeechState();
+                      }
+                    },
+                    icon: Icon(
+                      _isListening ? Icons.mic : Icons.mic_none,
+                      color: Colors.white,
+                    ),
+                  ),
                 ],
               ),
             )
