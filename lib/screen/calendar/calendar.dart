@@ -76,8 +76,6 @@ class _CalendarState extends State<Calendar> {
     startDay = DateTime.utc(startDay.year, startDay.month, startDay.day);
     DateTime lastDay = DateTime.parse(map.expectedDeliveryDate);
     Duration dur = lastDay.difference(startDay);
-    print(dur.inDays);
-    print(dur.inDays / 7);
 
     for (int i = 0, j = 1; i <= dur.inDays + 1; i++) {
       if ((i + 1) % 7 == 0) j++;
@@ -203,6 +201,7 @@ class _CalendarState extends State<Calendar> {
         if (!mounted) return;
         setState(() {
           _futureUserSymptoms = value;
+          print(_futureUserSymptoms);
           encodeMapForSymptoms(_futureUserSymptoms);
         });
       }),
@@ -506,13 +505,13 @@ class _CalendarState extends State<Calendar> {
                     tablePadding: const EdgeInsets.all(10),
                     canMarkersOverflow: true,
                     todayDecoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.pink[900]),
+                        shape: BoxShape.circle, color: Colors.grey[500]),
                     selectedDecoration: const BoxDecoration(
                         shape: BoxShape.circle, color: kRed),
                   ),
                   calendarBuilders: CalendarBuilders(
                     markerBuilder: (BuildContext context, date, events) {
-                      if (events.isEmpty) return SizedBox();
+                      if (events.isEmpty) return const SizedBox();
                       return ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
@@ -530,7 +529,7 @@ class _CalendarState extends State<Calendar> {
                                         : events[index] is PregnancyPhase
                                             ? Colors.deepPurple
                                             : events[index] is WeightData
-                                                ? Colors.brown.shade400
+                                                ? Colors.brown.shade500
                                                 : events[index] is SymptomsData
                                                     ? Colors.red[800]
                                                     : Colors.orange[800]),
@@ -556,7 +555,7 @@ class _CalendarState extends State<Calendar> {
                                   : event is PregnancyPhase
                                       ? Colors.deepPurple
                                       : event is WeightData
-                                          ? Colors.brown.shade400
+                                          ? Colors.brown.shade500
                                           : event is SymptomsData
                                               ? const Color.fromRGBO(
                                                   198, 40, 40, 1)

@@ -32,6 +32,7 @@ class EducationProvider extends ChangeNotifier {
         for (var data in jsonResponse['data']) {
           
           Information newData = Information(
+            id: data['id'],
             title: data['title'], 
             text: data['text'], 
             description: data['description'], 
@@ -39,7 +40,7 @@ class EducationProvider extends ChangeNotifier {
             category: data['category']
           );
           information.add(newData);
-          print(data['category']);
+          // print(data['category']);
         }
         return information;
       }
@@ -55,5 +56,27 @@ class EducationProvider extends ChangeNotifier {
     }
   }
 
-  
+  Future<void> postEducation(String token, String education_id) async {
+    try {
+      var url = Uri.parse('https://sticheapi.vercel.app/api/education');
+      var response = await http.post(url,
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer $token"
+          },
+          body: jsonEncode({'id': education_id}));
+      var jsonResponse = jsonDecode(response.body);
+      // print(jsonResponse);
+
+      if (jsonResponse['message'] == "200 success") {
+        return;
+      } else if (jsonResponse["message"] == "403 invalid") {
+        return;
+      } else {
+        return;
+      }
+    } catch (error) {
+      return;
+    }
+  }
 }

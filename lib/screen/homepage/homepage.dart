@@ -46,14 +46,13 @@ class _HomePageState extends State<HomePage> {
     final educationProvider =
         Provider.of<EducationProvider>(context, listen: false);
 
-    educationProvider.fetchEducation(authProvider.getUserData.id).then((value){
-      setState(() {
-        futureInformation=value;
-        
-      });
-    });
     final calendarProvider = Provider.of<CalendarProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_){
+      educationProvider.fetchEducation(authProvider.getUserData.id).then((value){
+        setState(() {
+          futureInformation=value;
+        });
+      });
       calendarProvider.fetchUserTodayEvent(authProvider.getUserData.id).then((value) {
         if (!mounted) return;
         setState(() {
@@ -102,8 +101,8 @@ class _HomePageState extends State<HomePage> {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!),
-                dailyEvents(_futureUserEvents, context),
-                education(context, futureInformation),
+                if (_futureUserEvents.isNotEmpty) dailyEvents(_futureUserEvents, context),
+                if (futureInformation.isNotEmpty) education(context, futureInformation),
               ]),
             ),
           ),

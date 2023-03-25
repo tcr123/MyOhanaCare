@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ohana_care/model/information.dart';
 import 'package:ohana_care/screen/Education/EducationDetails.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/auth_provider.dart';
+import '../provider/education_provider.dart';
 
 class EducationHome extends StatelessWidget {
   final Information title;
@@ -11,11 +15,14 @@ class EducationHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final educationProvider = Provider.of<EducationProvider>(context, listen: false);
     return Padding(
-      padding: EdgeInsets.fromLTRB(15, 0, 10, 10),
+      padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),
       child: InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => EducationDetails(title)));
+          educationProvider.postEducation(authProvider.getUserData.id, title.id);
         },
         child: Container(
           padding: EdgeInsets.all(14),
