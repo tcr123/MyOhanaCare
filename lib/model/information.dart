@@ -1,6 +1,7 @@
 import 'package:flutter/rendering.dart';
 
 class Information {
+  String id;
   String title;
   String description;
   String img;
@@ -8,6 +9,7 @@ class Information {
   String category;
 
   Information({
+    required this.id,
     required this.title,
     required this.text,
     required this.description,

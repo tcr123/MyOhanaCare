@@ -30,7 +30,7 @@ class CalendarProvider extends ChangeNotifier {
       List<EventData> userEvent = [];
 
       if(jsonResponse['message']=="200 success"){
-        for (var data in jsonResponse['data']['calendar']['event']) {
+        for (var data in jsonResponse['data']) {
           DateTime startDate = DateTime.parse(data['start']);
           DateTime endDate = DateTime.parse(data['end']);
           EventData newData = EventData(
@@ -68,9 +68,11 @@ class CalendarProvider extends ChangeNotifier {
       List<EventData> userEvent = [];
 
       if(jsonResponse['message']=="200 success"){
-        for (var data in jsonResponse['data']['calendar']['event']) {
-          DateTime startDate = DateTime.parse(data['start']);
-          DateTime endDate = DateTime.parse(data['end']);
+        for (var data in jsonResponse['data']) {
+          String start = data['start'].toString();
+          String end = data['end'].toString();
+          DateTime startDate = DateTime.parse(start.substring(0, start.length - 1));
+          DateTime endDate = DateTime.parse(end.substring(0, end.length - 1));
           EventData newData = EventData(
             role: data['role'], 
             eventName: data['title'], 
@@ -113,7 +115,6 @@ class CalendarProvider extends ChangeNotifier {
           'location': eventData.location
         }));
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
 
       if(jsonResponse['message']=="200 success"){
         
@@ -141,8 +142,10 @@ class CalendarProvider extends ChangeNotifier {
 
       if(jsonResponse['message']=="200 success"){
         if (jsonResponse['data']['last_day_period'] == null || jsonResponse['data']['delivery_date'] == null) return null;
-        DateTime lastDayPeriod = DateTime.parse(jsonResponse['data']['last_day_period']);
-        DateTime expectedDeliveryDate = DateTime.parse(jsonResponse['data']['delivery_date']);
+        String tempPeriod = jsonResponse['data']['last_day_period'].toString();
+        String tempDeliveryDate = jsonResponse['data']['delivery_date'].toString();
+        DateTime lastDayPeriod = DateTime.parse(tempPeriod.toString().substring(0,tempPeriod.length - 1));
+        DateTime expectedDeliveryDate = DateTime.parse(tempDeliveryDate.toString().substring(0, tempDeliveryDate.length - 1));
         PregnancyData userPregnancyData = PregnancyData(
           lastDayPeriod: lastDayPeriod.toString().split(' ')[0], 
           expectedDeliveryDate: expectedDeliveryDate.toString().split(' ')[0]
@@ -177,7 +180,6 @@ class CalendarProvider extends ChangeNotifier {
           'delivery_date': '${expectedDeliveryDate.toIso8601String()}Z'
         }));
       var jsonResponse = jsonDecode(response.body);
-      // print(jsonResponse);
 
       if(jsonResponse['message']=="200 success"){
         
@@ -202,7 +204,6 @@ class CalendarProvider extends ChangeNotifier {
           "Authorization": "Bearer $token"
         });
       var jsonResponse = jsonDecode(response.body);
-      // print(jsonResponse);
 
       List<PeriodData> userPeriod = [];
 
@@ -243,7 +244,6 @@ class CalendarProvider extends ChangeNotifier {
           'end': '${endDayPeriod.toIso8601String()}Z'
         }));
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
 
       if(jsonResponse['message']=="200 success"){
         
@@ -268,7 +268,6 @@ class CalendarProvider extends ChangeNotifier {
           "Authorization": "Bearer $token"
         });
       var jsonResponse = jsonDecode(response.body);
-      // print(jsonResponse);
 
       List<WeightData> userWeight = [];
 
@@ -295,7 +294,6 @@ class CalendarProvider extends ChangeNotifier {
   Future<void> postWeight(WeightData weight, String token) async {
     try {
       DateTime weightDate = DateTime.parse(weight.start);
-      print(weightDate);
 
       var url = Uri.parse('https://sticheapi.vercel.app/api/weight');
       var response = await http.post(url,
@@ -308,7 +306,6 @@ class CalendarProvider extends ChangeNotifier {
           'start': '${weightDate.toIso8601String()}Z'
         }));
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
 
       if(jsonResponse['message']=="200 success"){
         
@@ -333,7 +330,6 @@ class CalendarProvider extends ChangeNotifier {
           "Authorization": "Bearer $token"
         });
       var jsonResponse = jsonDecode(response.body);
-      // print(jsonResponse);
 
       List<SymptomsData> fetchUserSymptoms = [];
 
@@ -372,7 +368,6 @@ class CalendarProvider extends ChangeNotifier {
           'start': '${symptomsDate.toIso8601String()}Z'
         }));
       var jsonResponse = jsonDecode(response.body);
-      //print(jsonResponse);
 
       if(jsonResponse['message']=="200 success"){
         

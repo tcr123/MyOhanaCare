@@ -43,6 +43,8 @@ class _EducationState extends State<Education> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final educationProvider = Provider.of<EducationProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Column(
@@ -116,6 +118,7 @@ class _EducationState extends State<Education> {
                         selectedTopic == information.category) {
                       return GestureDetector(
                         onTap: () {
+                          educationProvider.postEducation(authProvider.getUserData.id, information.id);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
