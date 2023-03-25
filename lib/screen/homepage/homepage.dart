@@ -30,6 +30,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static const Color red1 = Color.fromRGBO(246, 226, 222, 1);
+  static const Color red2 = Color(0xffD49082);
+
   bool _pinned = true;
   bool _snap = false;
   bool _floating = false;
@@ -91,8 +94,10 @@ class _HomePageState extends State<HomePage> {
           SliverPersistentHeader(
             pinned: true,
             floating: true,
+            
             delegate: CustomSliverDelegate(
               expandedHeight: 320,
+              
             ),
           ),
 
@@ -129,130 +134,139 @@ class _HomePageState extends State<HomePage> {
     }
     Duration weekLeft = lastDay.difference(now);
     return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            color: Colors.red.shade200,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-        ),
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
+            
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(14, 12, 12, 12),
-              child: Text(
-                'Daily Highlights',
-                style: TextStyle(color: Colors.black, fontSize: 20),
-              ),
-            ),
             Padding(
-              padding: const EdgeInsets.only(left: 14.0),
-              child: Row(
-                children: [
-                  Image.asset("assets/Pregnant.png"),
-                  const Text("Pregnancy Cycle"),
-                ],
-              ),
+              padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+              child: Text('Daily Highlights',
+                        style: TextStyle(color: Colors.black, fontSize: 20),
+                      ),
             ),
-            const SizedBox(height: 10),
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 0, 20, 0),
-                  child: CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Color.fromRGBO(239, 154, 154, 1),
-                    child: CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.white,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+            
+            Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: red2,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(12)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(14, 14, 0, 0),
+                    child: Row(
+                      children: [
+                        Image.asset("assets/Pregnant.png"),
+                        const Text("Pregnancy Cycle"),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 0, 20, 0),
+                        child: CircleAvatar(
+                          radius: 45,
+                          backgroundColor: red2,
+                          child: CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.white,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(((weekLeft.inDays / 7).toInt() + 1).toString(), style: TextStyle(color: Colors.black)),
+                                const Text("Weeks", style: TextStyle(color: Colors.black)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(((weekLeft.inDays / 7).toInt() + 1).toString(), style: TextStyle(color: Colors.black)),
-                          const Text("Weeks", style: TextStyle(color: Colors.black)),
+                          Text(
+                            "PHASE",
+                            style: TextStyle(
+                                color: red2,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Text(phase),
+                          Text(""),
+                          Text("WEEKS LEFT",
+                              style: TextStyle(
+                                  color: red2,
+                                  fontWeight: FontWeight.w500)),
+                          Text("${((weekLeft.inDays / 7).toInt() + 1).toString()} weeks to go!"),
+                        ],
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15, 2, 15, 0),
+                    child: Divider(color: Colors.red.shade200),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(14, 0, 0, 0),
+                      width: 300,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("The big week?"),
+                          Text(""),
+                          Text(
+                              "If you didn't start feeling your baby-to-be's punches and kicks last week, you may this week — and it's the best! But it could take a little longer."),
                         ],
                       ),
                     ),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "PHASE",
-                      style: TextStyle(
-                          color: Colors.red.shade200,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Text(phase),
-                    Text(""),
-                    Text("WEEKS LEFT",
-                        style: TextStyle(
-                            color: Colors.red.shade200,
-                            fontWeight: FontWeight.w500)),
-                    Text("${((weekLeft.inDays / 7).toInt() + 1).toString()} weeks to go!"),
-                  ],
-                )
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(15, 2, 15, 0),
-              child: Divider(color: Colors.red.shade200),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                margin: EdgeInsets.fromLTRB(14, 0, 0, 0),
-                width: 300,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("The big week?"),
-                    Text(""),
-                    Text(
-                        "If you didn't start feeling your baby-to-be's punches and kicks last week, you may this week — and it's the best! But it could take a little longer."),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(20, 2, 15, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    height: 40,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.red.shade100, // set the background color
-                      border: Border.all(
-                        color: Colors.red.shade200, // set the border color
-                        width: 2, // set the border width
-                      ),
-                    ),
-                    child: TextButton(
-                      child: const Text('More Tips >>',
-                          style: TextStyle(color: Colors.black87)),
-                      onPressed: () {
-                        phase == 'first trimester' 
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const tips()),
-                          )
-                        : phase == 'second trimester'
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const tips2()),
-                          )
-                        : Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const tips3()),
-                          );
-                      },
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(20, 2, 15, 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          height: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color(0xFFF6E2DE), // set the background color
+                            border: Border.all(
+                              color: red2, // set the border color
+                              width: 1, // set the border width
+                            ),
+                          ),
+                          child: TextButton(
+                            child: const Text('More Tips >>',
+                                style: TextStyle(color: Colors.black87,fontWeight: FontWeight.normal)),
+                            onPressed: () {
+                              phase == 'first trimester' 
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const tips()),
+                                )
+                              : phase == 'second trimester'
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const tips2()),
+                                )
+                              : Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const tips3()),
+                                );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -267,61 +281,69 @@ class _HomePageState extends State<HomePage> {
 
 Widget dailyEvents(List<EventData> events, BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.all(10.0),
-    child: Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(
-          color: Colors.red.shade200,
-        ),
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
-      ),
+    padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+    child: Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
+          
           Padding(
-            padding: EdgeInsets.fromLTRB(14, 12, 12, 12),
-            child: Text(
-              'Events',
-              style: TextStyle(color: Colors.black, fontSize: 20),
-            ),
-          ),
-          ...events.map((event) =>
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0, bottom: 10),
-              child: Row(
-                children: [
-                  Image.asset(event.role == 'Husband' ? "assets/icons/event_male.png" : "assets/icons/event.png", width: 32, height: 32),
-                  const SizedBox(width: 10),
-                  Text(event.eventName),
-                ],
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
+                  child: Text(
+                    'Events',
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                ),
+          Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Color(0xFF977C45),
               ),
+              borderRadius: const BorderRadius.all(Radius.circular(12)),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(25, 5, 15, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Color.fromARGB(
-                        255, 254, 244, 224), // set the background color
-                    border: Border.all(
-                      color: Color.fromARGB(
-                          255, 151, 124, 69), // set the border color
-                      width: 2, // set the border width
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                
+                ...events.map((event) =>
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0, bottom: 10),
+                    child: Row(
+                      children: [
+                        Image.asset(event.role == 'Husband' ? "assets/icons/event_male.png" : "assets/icons/event.png", width: 32, height: 32),
+                        const SizedBox(width: 10),
+                        Text(event.eventName),
+                      ],
                     ),
                   ),
-                  child: TextButton(
-                    child: const Text('View Details',
-                        style: TextStyle(color: Colors.black87)),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Calendar()));
-                    },
+                ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(25, 15, 15, 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Container(
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Color.fromARGB(
+                              255, 254, 244, 224), // set the background color
+                          border: Border.all(
+                            color: Color(0xFF977C45), // set the border color
+                            width: 1, // set the border width
+                          ),
+                        ),
+                        child: TextButton(
+                          child: const Text('View Details',
+                              style: TextStyle(color: Colors.black87,fontWeight: FontWeight.normal)),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Calendar()));
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -335,23 +357,21 @@ Widget dailyEvents(List<EventData> events, BuildContext context) {
 
 Widget education(BuildContext context, List<Information> futureInformation) {
   return Padding(
-    padding: EdgeInsets.fromLTRB(15, 0, 10, 0),
+    padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
     child: Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              child: Text("We care for your family.",
-                  style: TextStyle(fontSize: 18)),
-            ),
-            Expanded(
-              child: Container(
-                alignment: Alignment.centerRight,
-                child: TextButton(
+              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("We care for your family.",
+                      style: TextStyle(fontSize: 18)),
+
+                  TextButton(
                   child: const Text(
-                    'More Tips >>',
-                    style: TextStyle(color: Colors.black87),
+                    'View All >>',
+                    style: TextStyle(color: Colors.black87,fontWeight: FontWeight.normal),
                   ),
                   onPressed: () {
                     Navigator.push(
@@ -361,12 +381,15 @@ Widget education(BuildContext context, List<Information> futureInformation) {
                     );
                   },
                 ),
+
+                  
+                      
+                ],
               ),
             ),
-          ],
-        ),
+        
         Container(
-          height: 230,
+          height: 240,
           child: ListView.builder(
             itemCount: futureInformation.length,
             scrollDirection: Axis.horizontal,
@@ -439,22 +462,17 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           right: 20,
           child: buildButton(shrinkOffset, authProvider.getUserData.role),
         ),
+        
         Positioned(
-          top: 90,
-          left: 10,
-          right: 280,
-          child: EditContactButton(shrinkOffset, context),
-        ),
-        Positioned(
-          top: top,
+          top: 220,
           left: 20,
           right: 20,
           child: buildFloating(shrinkOffset, context),
         ),
         Positioned(
           top: 90,
-          left: 240,
-          right: 60,
+          left: 280,
+          right: 50,
           child: buildChat(shrinkOffset),
         ),
       ],
@@ -472,7 +490,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           radius: 50,
         ),
         Container(
-          color: role == 'Husband' ? Colors.blue.shade100 : Colors.red.shade100,
+          height: 275,
+          color: role == 'Husband' ? Color(0xFFD3ECFB) : Color.fromRGBO(246, 226, 222, 1),
         ),
       ],
     );
@@ -515,47 +534,89 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     DateTime now = DateTime.now();
     return Opacity(
       opacity: disappear(shrinkOffset),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
-          side: BorderSide(color: Colors.red.shade200, width: 3.0),
-        ),
-        child: Row(
-          children: [
-            Image.asset('assets/home.png'),
-            SizedBox(width: MediaQuery.of(context).size.width * 0.18),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  now.day.toString(),
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 42,
-                      fontWeight: FontWeight.w700),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 250,
+            height: 100,
+            child: Card(
+          
+               
+              shape: RoundedRectangleBorder(
+                
+                borderRadius: BorderRadius.circular(18.0),
+                side: BorderSide(color: Color(0xffD49082), width: 1.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [ 
+                  Row(
+                    
+                      
+                    children: [
+                      
+                      Text(
+                        now.day.toString(),
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 42,
+                            fontWeight: FontWeight.w700),
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            weekdays[now.weekday % 7],
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 235, 146, 140),
+                                fontSize: 18),
+                          ),
+                          Text(
+                            '${weekmonths[now.month % 12]} ${now.year}',
+                            style: const TextStyle(color: Colors.black, fontSize: 18),
+                          )
+                        ],
+                      ),
+                      const SizedBox(width: 10),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => editSOS()),
+                );
+            },
+            child: SizedBox(
+              width: 120,
+              height: 100,
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                  side: BorderSide(color: Color(0xffD49082), width: 1.0),
                 ),
-                const SizedBox(width: 10),
-                Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      weekdays[now.weekday % 7],
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 235, 146, 140),
-                          fontSize: 18),
+                    Column(
+                      children: [
+                        Image.asset("assets/editSOS.png"),
+                        Text('Edit SOS',style: TextStyle(color:_HomePageState.red2),)
+                      ],
                     ),
-                    Text(
-                      '${weekmonths[now.month % 12]} ${now.year}',
-                      style: const TextStyle(color: Colors.black, fontSize: 18),
-                    )
                   ],
                 ),
-                const SizedBox(width: 10),
-              ],
-            )
-          ],
-        ),
+              ),
+            ),
+          ),
+
+        ],
       ),
     );
   }
@@ -591,7 +652,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   Widget buildAppBar(double shrinkOffset, String role, DateTime now) => Opacity(
         opacity: appear(shrinkOffset),
         child: AppBar(
-          backgroundColor: role == 'Husband' ? Colors.blue.shade100 :Colors.red.shade100,
+          backgroundColor: role == 'Husband' ? Colors.blue.shade100 :Color.fromRGBO(246, 226, 222, 1),
           leading: Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Image.asset(role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
@@ -633,34 +694,45 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
   Widget buildChat(double shrinkOffset) {
-    return Opacity(
-      opacity: disappear(shrinkOffset),
-      child: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Center(
-            child: AnimatedTextKit(
-              repeatForever: true,
-              animatedTexts: [
-                ScaleAnimatedText('Click Me for help!',
+  return Opacity(
+    opacity: disappear(shrinkOffset),
+    child: Container(
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 2600),
+              curve: Curves.easeInOut,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8.0),
+                border: Border.all(color: Color.fromARGB(255, 2, 2, 2), width: 2.0),
+              ),
+              child: AnimatedTextKit(
+                repeatForever: true,
+                animatedTexts: [
+                  ScaleAnimatedText(
+                    'Click Me for help!',
                     duration: Duration(milliseconds: 2600),
                     textStyle:
                         TextStyle(fontSize: 14, color: Colors.red.shade300),
-                    scalingFactor: 0.6)
-              ],
-              onTap: () {
-                print("Tap Event");
-              },
+                    scalingFactor: 0.4,
+                  ),
+                ],
+                onTap: () {
+                  print("Tap Event");
+                },
+              ),
             ),
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   Widget buildText(double shrinkOffset, String userName) {
     return Opacity(
@@ -674,34 +746,35 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 
-  Widget EditContactButton(double shrinkOffset, BuildContext context) {
-    return Opacity(
-      opacity: disappear(shrinkOffset),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: Colors.red.shade100, // set the background color
-          border: Border.all(
-            color: Colors.red.shade200, // set the border color
-            width: 2, // set the border width
-          ),
-        ),
-        child: Row(
-          children: [
-            TextButton(
-              child: const Text('Edit SOS',
-                  style:
-                      TextStyle(color: Color.fromARGB(221, 203, 150, 150), fontSize: 12)),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => editSOS()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget EditContactButton(double shrinkOffset, BuildContext context) {
+  //   return Opacity(
+  //     opacity: disappear(shrinkOffset),
+  //     child: Container(
+  //       height: 30,
+  //       decoration: BoxDecoration(
+  //         borderRadius: BorderRadius.circular(5),
+  //         color: Colors.red.shade100, // set the background color
+  //         border: Border.all(
+  //           color: Colors.red.shade200, // set the border color
+  //           width: 1, // set the border width
+  //         ),
+  //       ),
+  //       child: Row(
+  //         children: [
+  //           TextButton(
+  //             child: const Text('Edit SOS',
+  //                 style:
+  //                     TextStyle(color: Color.fromARGB(221, 203, 150, 150), fontSize: 12)),
+  //             onPressed: () {
+  //               Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(builder: (context) => editSOS()),
+  //               );
+  //             },
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }

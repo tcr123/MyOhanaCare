@@ -12,12 +12,15 @@ class EducationDetails extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red.shade200,
+        backgroundColor: Color.fromRGBO(246, 226, 222, 1),
         title: Text(
           "Ohana Cares",
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 20,color: Color(0xffD49082)),
           textAlign: TextAlign.end,
         ),
+        iconTheme: IconThemeData(
+          color: Color(0xffD49082), // change color here
+    ),
       ),
       body: SingleChildScrollView(
         child: Padding(

@@ -15,31 +15,48 @@ class EducationList extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      child: Container(
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-            color: Color.fromRGBO(217, 217, 217, 100),
-            borderRadius: BorderRadius.circular(8)),
-        child: Column(children: [
-          Container(
-            padding: const EdgeInsets.only(top: 3.0),
-            height: 150,
-            child: Image.network(logoImagePath),
+ Widget build(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 30.0),
+    child: Container(
+      padding: EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(255, 251, 251, 1),
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3), // changes position of shadow
           ),
-          Column(
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(top: 6.0),
-                  child: Center(
-                    child: Text(title, style: TextStyle(fontSize: 17)),
-                  )),
-            ],
-          )
-        ]),
+        ],
       ),
-    );
-  }
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 170,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(logoImagePath),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: Center(
+              child: Text(title, style: TextStyle(fontSize: 17)),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
 }
