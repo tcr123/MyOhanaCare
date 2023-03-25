@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "110425275736",
+    "project_id": "ohana-cares",
+    "storage_bucket": "ohana-cares.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110425275736:android:5529f06f5bde72d03b792d",
+        "android_client_info": {
+          "package_name": "com.kitahack.ohana_care"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110425275736-hsc8es3k152d9dl6ojbjqhakf12dvhf9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZt8AgEB7g1XhG88sRvx9tWCT99mFlPAk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110425275736-hsc8es3k152d9dl6ojbjqhakf12dvhf9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

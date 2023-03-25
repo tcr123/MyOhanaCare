@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ohana_care/provider/auth_provider.dart';
@@ -9,8 +11,11 @@ import 'package:ohana_care/provider/models_provider.dart';
 import 'package:ohana_care/provider/education_provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   initializeDateFormatting().then((_) => runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: AuthProvider()),
     ChangeNotifierProvider.value(value: CalendarProvider()),

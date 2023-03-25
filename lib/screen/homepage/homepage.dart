@@ -1,5 +1,12 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ohana_care/main.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:http/http.dart' as http;
 import 'package:ohana_care/model/information.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
 import 'package:ohana_care/screen/calendar/calendar.dart';
@@ -12,13 +19,8 @@ import '../../model/pregnancy_data.dart';
 import '../../provider/auth_provider.dart';
 import '../../provider/calendar_provider.dart';
 import '../../widget/EducationHome.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'tips.dart';
-import '../../provider/auth_provider.dart';
-import '../../widget/EducationList.dart';
-import '../../widget/EducationCard.dart';
 import 'package:ohana_care/provider/education_provider.dart';
 
 
@@ -37,6 +39,11 @@ class _HomePageState extends State<HomePage> {
   bool _snap = false;
   bool _floating = false;
   final number = '+60176865849';
+
+  // notification
+  String? mToken = " ";
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin(); 
+
   List<Information> futureInformation =[]; 
 
   List<EventData> _futureUserEvents = [];
@@ -72,6 +79,81 @@ class _HomePageState extends State<HomePage> {
         });
       });
     });
+
+    // notification
+    requestPermission();
+    getToken(authProvider.getUserData.name);
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  void getToken(String name) async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mToken = token;
+        print("My token is $mToken");
+      });
+      // saveToken(token!, name);
+    });
+  }
+
+  void saveToken(String token, String name) async {
+    await FirebaseFirestore.instance.collection("deviceTokens").doc(name).set({
+      'token' : token
+    });
+  }
+
+  void sendPushMessage(String token, String body, String title) async {
+    try {
+      await http.post(
+        Uri.parse("https://fcm.googleapis.com/fcm/send"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=BK0ZsT1glZKjJy-LhntKGJ3gLtyoKBaQywPt9vfs1vFWsQ39ep0zGcviRFl64yiDZzVoxxkHxJCE1f71EVgYn9I'
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic> {
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title
+            },
+            "notification": <String, dynamic> {
+              "title": title,
+              "body": body,
+              "android_channel_id": "dbfood"
+            },
+            "to": token
+          }
+        )
+      );
+    } catch (e) {
+      if (kDebugMode) {
+        print("error push notification");
+      }
+    }
   }
 
   @override
