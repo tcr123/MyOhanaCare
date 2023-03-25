@@ -16,6 +16,7 @@ import 'package:ohana_care/screen/homepage/tips3.dart';
 import 'package:provider/provider.dart';
 import '../../model/event.dart';
 import '../../model/pregnancy_data.dart';
+import '../../model/push_notification.dart';
 import '../../provider/auth_provider.dart';
 import '../../provider/calendar_provider.dart';
 import '../../widget/EducationHome.dart';
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
 
     // notification
     requestPermission();
-    getToken(authProvider.getUserData.name);
+    getToken(authProvider.getUserData.id);
   }
 
   void requestPermission() async {
@@ -107,53 +108,38 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void getToken(String name) async {
+  void onDidReceiveLocalNotification(
+    int id, String title, String body, String payload) async {
+    // display a dialog with the notification details, tap ok to go to another page
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(title),
+        content: Text(body)
+      ),
+    );
+  }
+
+  void getToken(String id) async {
     await FirebaseMessaging.instance.getToken().then((token) {
       setState(() {
         mToken = token;
-        print("My token is $mToken");
       });
-      // saveToken(token!, name);
+      saveToken(token!, id);
     });
   }
 
-  void saveToken(String token, String name) async {
-    await FirebaseFirestore.instance.collection("deviceTokens").doc(name).set({
-      'token' : token
-    });
-  }
-
-  void sendPushMessage(String token, String body, String title) async {
-    try {
-      await http.post(
-        Uri.parse("https://fcm.googleapis.com/fcm/send"),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Authorization': 'key=BK0ZsT1glZKjJy-LhntKGJ3gLtyoKBaQywPt9vfs1vFWsQ39ep0zGcviRFl64yiDZzVoxxkHxJCE1f71EVgYn9I'
-        },
-        body: jsonEncode(
-          <String, dynamic>{
-            'priority': 'high',
-            'data': <String, dynamic> {
-              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-              'status': 'done',
-              'body': body,
-              'title': title
-            },
-            "notification": <String, dynamic> {
-              "title": title,
-              "body": body,
-              "android_channel_id": "dbfood"
-            },
-            "to": token
-          }
-        )
-      );
-    } catch (e) {
-      if (kDebugMode) {
-        print("error push notification");
-      }
-    }
+  void saveToken(String token, String id) async {
+    var url = Uri.parse('https://sticheapi.vercel.app/api/token');
+    var response = await http.post(url,
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer $id"
+      },
+      body: jsonEncode({
+        'token': token
+      }));
+    print(response.statusCode);
   }
 
   @override
@@ -520,6 +506,40 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     'Nov'
   ];
 
+  void sendPushMessage(String token, String body, String title) async {
+    try {
+      final response = await http.post(
+        Uri.parse("https://fcm.googleapis.com/fcm/send"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=AAAAGbXb_Vg:APA91bGndbvfWsp-MF8GAYvZTsO9U-42SKbm4QSZO2_1BZViISAuPt6naNAYUCjtWBdg-vAvP7vUTwuQVm5yYV3tZ7WGjqdK2AFjb65oOjL98n6wbXJJiVZ0oxWtaGT98TRJtEqqnmeb'
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic> {
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title
+            },
+            "notification": <String, dynamic> {
+              "title": title,
+              "body": body,
+              "android_channel_id": "dbfood"
+            },
+            "to": token
+          }
+        )
+      );
+      print(response.statusCode);
+    } catch (e) {
+      if (kDebugMode) {
+        print("error push notification");
+      }
+    }
+  }
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -542,7 +562,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           top: 80,
           left: 20,
           right: 20,
-          child: buildButton(shrinkOffset, authProvider.getUserData.role),
+          child: buildButton(shrinkOffset, authProvider.getUserData.role, authProvider.getUserData.id),
         ),
         
         Positioned(
@@ -594,11 +614,23 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   //       ),
   //     );
 
-  Widget buildButton(double shrinkOffset, String role) {
+  Widget buildButton(double shrinkOffset, String role, String token) {
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: GestureDetector(
-        onTap: _calledNumber,
+        onTap: () async {
+          // _calledNumber;
+          var url = Uri.parse('https://sticheapi.vercel.app/api/token');
+          var response = await http.get(url,
+            headers: {
+              "Authorization": "Bearer $token"
+            });
+          var jsonResponse = jsonDecode(response.body);
+          print(jsonResponse);
+          if(jsonResponse['message']=="200 success"){
+            sendPushMessage(jsonResponse['data']['token'], 'Your Wife is in danger', 'Notification');
+          }
+        },
         child: CircleAvatar(
           backgroundColor: Colors.white,
           radius: 90,
