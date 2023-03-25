@@ -9,7 +9,7 @@ class editSOS extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red.shade100,
+        backgroundColor: Color.fromRGBO(246, 226, 222, 1),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image.asset('assets/male_stitch.png'),
@@ -45,71 +45,72 @@ class editSOS extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(14, 50, 10, 10),
-              child: Text("Local Emergency Number",
-                  style: TextStyle(fontSize: 17)),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.red.shade100,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.transparent),
-                  ),
-                  hintText: 'Eg: 999',
-                ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 50, 10, 5),
+                child: Text("Local Emergency Number",
+                    style: TextStyle(fontSize: 17)),
               ),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
-              child: Text("Personal Contact Emergency",
-                  style: TextStyle(fontSize: 17)),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
-              child: TextField(
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.red.shade100,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: BorderSide(color: Colors.transparent),
-                  ),
-                  hintText: 'Eg: +60173462718',
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.grey, // set the border color
-                      width: 1, // set the border width
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color.fromRGBO(246, 226, 222, 1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none
                     ),
-                    borderRadius:
-                        BorderRadius.circular(10), // set the border radius
-                  ),
-                  child: TextButton(
-                    child: const Text('Save',
-                        style: TextStyle(
-                            color: Color.fromARGB(221, 203, 150, 150))),
-                    onPressed: () {},
+                    hintText: 'Eg: 999',
                   ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 10, 14, 5),
+                child: Text("Personal Contact Emergency",
+                    style: TextStyle(fontSize: 17)),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+                child: TextField(
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color.fromRGBO(246, 226, 222, 1),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: 'Eg: +60173462718',
+                  ),
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Container(
+                    width: 250,
+                    decoration: BoxDecoration(
+                      color:  Color(0xffD49082),
+                      borderRadius:
+                          BorderRadius.circular(20), // set the border radius
+                    ),
+                    child: TextButton(
+                      child: const Text('Save',
+                          style: TextStyle(
+                              color: Color.fromARGB(221, 255, 255, 255))),
+                      onPressed: () {},
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -44,7 +44,7 @@ class _tips3State extends State<tips3> {
     DateTime now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red.shade100,
+        backgroundColor:Color.fromRGBO(246, 226, 222, 1),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image.asset(authProvider.getUserData.role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
@@ -82,7 +82,7 @@ class _tips3State extends State<tips3> {
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.red.shade400, // Set the border color here
+                color: Color(0xffD49082), // Set the border color here
               ),
               borderRadius: BorderRadius.circular(18),
             ),
@@ -90,11 +90,11 @@ class _tips3State extends State<tips3> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(14, 10, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(14, 14, 0, 10),
                   child: Row(
                     children: [
                       Image.asset("assets/Pregnant.png"),
-                      const Text("Third Trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
+                      const Text("Third Trimester ", style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
                     ],
                   ),
                 ),

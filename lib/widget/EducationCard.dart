@@ -22,7 +22,7 @@ class EducationCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             child: Container(
               padding: EdgeInsets.all(9.5),
-              color: Color.fromRGBO(217, 217, 217, 100),
+              color: Color(0xFFD9D9D9),
               child: Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

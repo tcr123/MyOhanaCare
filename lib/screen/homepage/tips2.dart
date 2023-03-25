@@ -44,7 +44,7 @@ class _tips2State extends State<tips2> {
     DateTime now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red.shade100,
+        backgroundColor: Color.fromRGBO(246, 226, 222, 1),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image.asset(authProvider.getUserData.role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
@@ -82,7 +82,7 @@ class _tips2State extends State<tips2> {
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.red.shade400, // Set the border color here
+                color: Color(0xffD49082), // Set the border color here
               ),
               borderRadius: BorderRadius.circular(18),
             ),

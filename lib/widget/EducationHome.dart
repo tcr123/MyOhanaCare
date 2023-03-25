@@ -18,32 +18,51 @@ class EducationHome extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final educationProvider = Provider.of<EducationProvider>(context, listen: false);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(15, 0, 10, 10),
+      padding: EdgeInsets.fromLTRB(0, 0, 13, 10),
       child: InkWell(
         onTap: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) => EducationDetails(title)));
           educationProvider.postEducation(authProvider.getUserData.id, title.id);
         },
         child: Container(
-          padding: EdgeInsets.all(14),
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: Color.fromRGBO(237, 235, 235, 0.612),
+              color: Color(0xFFD3ECFB),
               borderRadius: BorderRadius.circular(14)),
-          child: Column(children: [
-            Container(
-              padding: const EdgeInsets.only(top: 3.0),
-              height: 150,
-              child: Image.network(title.img),
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: SizedBox(
-                    child: Text('${title.title.substring(0, 30)}...', style: TextStyle(fontSize: 15)))
+              
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(14),
+                  child: Container(
+                    height: 160,
+                    width: 240,
+                    child: Image.network(
+                      title.img,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ],
-            )
+              ),
+
+              SizedBox(height:10),
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
+                child: Container(
+                  width: 240,
+                  child: Text(
+                    '${title.title.substring(0, 30)}...',
+                    // '${title.title}',
+                    style: TextStyle(fontSize: 15),
+                    
+                  ),
+                ),
+              ),
+
           ]),
         ),
       ),
