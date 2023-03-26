@@ -1,5 +1,12 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:ohana_care/main.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:http/http.dart' as http;
 import 'package:ohana_care/model/information.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
 import 'package:ohana_care/screen/calendar/calendar.dart';
@@ -9,16 +16,12 @@ import 'package:ohana_care/screen/homepage/tips3.dart';
 import 'package:provider/provider.dart';
 import '../../model/event.dart';
 import '../../model/pregnancy_data.dart';
+import '../../model/push_notification.dart';
 import '../../provider/auth_provider.dart';
 import '../../provider/calendar_provider.dart';
 import '../../widget/EducationHome.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'tips.dart';
-import '../../provider/auth_provider.dart';
-import '../../widget/EducationList.dart';
-import '../../widget/EducationCard.dart';
 import 'package:ohana_care/provider/education_provider.dart';
 
 
@@ -37,6 +40,11 @@ class _HomePageState extends State<HomePage> {
   bool _snap = false;
   bool _floating = false;
   final number = '+60176865849';
+
+  // notification
+  String? mToken = " ";
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin(); 
+
   List<Information> futureInformation =[]; 
 
   List<EventData> _futureUserEvents = [];
@@ -72,6 +80,54 @@ class _HomePageState extends State<HomePage> {
         });
       });
     });
+
+    // notification
+    requestPermission();
+    getToken(authProvider.getUserData.id);
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  void getToken(String id) async {
+    await FirebaseMessaging.instance.getToken().then((token) {
+      setState(() {
+        mToken = token;
+      });
+      saveToken(token!, id);
+    });
+  }
+
+  void saveToken(String token, String id) async {
+    var url = Uri.parse('https://sticheapi.vercel.app/api/token');
+    var response = await http.post(url,
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": "Bearer $id"
+      },
+      body: jsonEncode({
+        'token': token
+      }));
+    print(response.statusCode);
   }
 
   @override
@@ -438,6 +494,40 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     'Nov'
   ];
 
+  void sendPushMessage(String token, String body, String title) async {
+    try {
+      final response = await http.post(
+        Uri.parse("https://fcm.googleapis.com/fcm/send"),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=AAAAGbXb_Vg:APA91bGndbvfWsp-MF8GAYvZTsO9U-42SKbm4QSZO2_1BZViISAuPt6naNAYUCjtWBdg-vAvP7vUTwuQVm5yYV3tZ7WGjqdK2AFjb65oOjL98n6wbXJJiVZ0oxWtaGT98TRJtEqqnmeb'
+        },
+        body: jsonEncode(
+          <String, dynamic>{
+            'priority': 'high',
+            'data': <String, dynamic> {
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'status': 'done',
+              'body': body,
+              'title': title
+            },
+            "notification": <String, dynamic> {
+              "title": title,
+              "body": body,
+              "android_channel_id": "dbfood"
+            },
+            "to": token
+          }
+        )
+      );
+      print(response.statusCode);
+    } catch (e) {
+      if (kDebugMode) {
+        print("error push notification");
+      }
+    }
+  }
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -460,7 +550,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           top: 80,
           left: 20,
           right: 20,
-          child: buildButton(shrinkOffset, authProvider.getUserData.role),
+          child: buildButton(shrinkOffset, authProvider.getUserData.role, authProvider.getUserData.id),
         ),
         
         Positioned(
@@ -512,11 +602,28 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   //       ),
   //     );
 
-  Widget buildButton(double shrinkOffset, String role) {
+  Widget buildButton(double shrinkOffset, String role, String token) {
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: GestureDetector(
-        onTap: _calledNumber,
+        onTap: () async {
+          // _calledNumber;
+          var url = Uri.parse('https://sticheapi.vercel.app/api/token');
+          var response = await http.get(url,
+            headers: {
+              "Authorization": "Bearer $token"
+            });
+          var jsonResponse = jsonDecode(response.body);
+          print(jsonResponse);
+          if(jsonResponse['message']=="200 success"){
+            if (role == 'Husband') {
+              sendPushMessage(jsonResponse['spouse']['token'], 'Your Husband is in danger', 'Notification');
+            }
+            else {
+              sendPushMessage(jsonResponse['spouse']['token'], 'Your Wife is in danger', 'Notification');
+            }
+          }
+        },
         child: CircleAvatar(
           backgroundColor: Colors.white,
           radius: 90,
