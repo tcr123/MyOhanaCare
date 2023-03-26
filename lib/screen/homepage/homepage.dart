@@ -108,18 +108,6 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void onDidReceiveLocalNotification(
-    int id, String title, String body, String payload) async {
-    // display a dialog with the notification details, tap ok to go to another page
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: Text(title),
-        content: Text(body)
-      ),
-    );
-  }
-
   void getToken(String id) async {
     await FirebaseMessaging.instance.getToken().then((token) {
       setState(() {
@@ -628,7 +616,12 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           var jsonResponse = jsonDecode(response.body);
           print(jsonResponse);
           if(jsonResponse['message']=="200 success"){
-            sendPushMessage(jsonResponse['data']['token'], 'Your Wife is in danger', 'Notification');
+            if (role == 'Husband') {
+              sendPushMessage(jsonResponse['spouse']['token'], 'Your Husband is in danger', 'Notification');
+            }
+            else {
+              sendPushMessage(jsonResponse['spouse']['token'], 'Your Wife is in danger', 'Notification');
+            }
           }
         },
         child: CircleAvatar(
