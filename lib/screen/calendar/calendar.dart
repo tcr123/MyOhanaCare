@@ -224,6 +224,7 @@ class _CalendarState extends State<Calendar> {
     _events = {};
 
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    
     final calendarProvider =
         Provider.of<CalendarProvider>(context, listen: false);
     Future.wait([
@@ -280,6 +281,7 @@ class _CalendarState extends State<Calendar> {
 
   _showToolsForCalendar() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    String role= authProvider.getUserData.role; 
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -287,6 +289,7 @@ class _CalendarState extends State<Calendar> {
                 borderRadius: BorderRadius.circular(20),
               ),
               backgroundColor: Colors.white,
+              
               content: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.6,
                 height: MediaQuery.of(context).size.height * 0.25,
@@ -393,9 +396,10 @@ class _CalendarState extends State<Calendar> {
                         onRefresh();
                       }
                     },
-                    child: const CalendarWorkSelection(
-                      imageAddress: 'assets/icons/event.png',
+                    child: CalendarWorkSelection(
+                      imageAddress: role == 'Husband' ? 'assets/icons/event_male.png' : 'assets/icons/event.png',
                       title: 'Event',
+                      
                     ),
                   ),
                 ),
@@ -430,10 +434,10 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
-
+    String role= authProvider.getUserData.role;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kRed,
+        backgroundColor: role == 'Husband' ? blue1 :kRedBackground,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image(
@@ -477,7 +481,7 @@ class _CalendarState extends State<Calendar> {
               Container(
                 margin: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    color: kRedBackground,
+                    color: role == 'Husband' ? blue1 :kRedBackground,
                     borderRadius: BorderRadius.circular(20)),
                 child: TableCalendar(
                   locale: 'en_US',
@@ -678,7 +682,7 @@ class _CalendarState extends State<Calendar> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: kRed,
+        backgroundColor: role == 'Husband' ? blue2 :kRed,
         child: const Icon(Icons.add),
         onPressed: () {
           _showToolsForCalendar();
@@ -705,7 +709,7 @@ class CalendarWorkSelection extends StatelessWidget {
       const SizedBox(height: 5),
       Text(title,
           style: const TextStyle(
-              color: kRed, fontSize: 12, fontWeight: FontWeight.w500))
+              color: Colors.black, fontSize: 12, fontWeight: FontWeight.w400))
     ]);
   }
 }
