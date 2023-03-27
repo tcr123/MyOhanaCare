@@ -86,7 +86,7 @@ class _RegisterSuccessfulState extends State<RegisterSuccessful> {
                         onPressed: () {
                           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const MyOhanaCare()));
                         },
-                        child: authProvider.getUserData.role == "Husband" ? const Text("May be Later") : const Text("Continue"),
+                        child: authProvider.getUserData.role == "Husband" ? const Text("Maybe Later") : const Text("Continue"),
                       ),
                     ),
                   ],

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:http/http.dart' as http;
+import 'package:ohana_care/constant.dart';
+import 'package:ohana_care/main.dart';
 import 'package:ohana_care/model/information.dart';
 import 'package:ohana_care/screen/Education/Education.dart';
 import 'package:ohana_care/screen/calendar/calendar.dart';
@@ -35,6 +37,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   static const Color red1 = Color.fromRGBO(246, 226, 222, 1);
   static const Color red2 = Color(0xffD49082);
+  
 
   bool _pinned = true;
   bool _snap = false;
@@ -161,7 +164,7 @@ class _HomePageState extends State<HomePage> {
             padding: EdgeInsets.symmetric(vertical: 30),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!),
+                if (_futurePregnancyDate != null) dailyHighlight(_futurePregnancyDate!,authProvider.getUserData.role),
                 if (_futureUserEvents.isNotEmpty) dailyEvents(_futureUserEvents, context),
                 if (futureInformation.isNotEmpty) education(context, futureInformation),
               ]),
@@ -172,7 +175,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget dailyHighlight(PregnancyData pregnancyData) {
+  Widget dailyHighlight(PregnancyData pregnancyData,String role) {
     DateTime startDay = DateTime.parse(pregnancyData.lastDayPeriod);
     startDay = DateTime.utc(startDay.year, startDay.month, startDay.day);
     DateTime lastDay = DateTime.parse(pregnancyData.expectedDeliveryDate);
@@ -207,7 +210,7 @@ class _HomePageState extends State<HomePage> {
               elevation: 0,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  color: red2,
+                  color: role == 'Husband' ? blue2 : kRed,
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
               ),
@@ -220,7 +223,8 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.fromLTRB(14, 14, 0, 0),
                     child: Row(
                       children: [
-                        Image.asset("assets/Pregnant.png"),
+                        
+                        Image.asset(role == 'Husband' ? "assets/icons/Pregnant_blue.png" : "assets/icons/pregnant.png"),
                         const Text("Pregnancy Cycle"),
                       ],
                     ),
@@ -232,7 +236,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.fromLTRB(40, 0, 20, 0),
                         child: CircleAvatar(
                           radius: 45,
-                          backgroundColor: red2,
+                          backgroundColor: role == 'Husband' ? blue2:kRed,
                           child: CircleAvatar(
                             radius: 40,
                             backgroundColor: Colors.white,
@@ -252,14 +256,14 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             "PHASE",
                             style: TextStyle(
-                                color: red2,
+                                color: role == 'Husband' ? blue2:kRed,
                                 fontWeight: FontWeight.w500),
                           ),
                           Text(phase),
                           Text(""),
                           Text("WEEKS LEFT",
                               style: TextStyle(
-                                  color: red2,
+                                  color: role == 'Husband' ? blue2:kRed,
                                   fontWeight: FontWeight.w500)),
                           Text("${((weekLeft.inDays / 7).toInt() + 1).toString()} weeks to go!"),
                         ],
@@ -268,7 +272,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(15, 2, 15, 0),
-                    child: Divider(color: Colors.red.shade200),
+                    child: Divider(color: role == 'Husband' ? blue2 :red2),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -295,9 +299,9 @@ class _HomePageState extends State<HomePage> {
                           height: 40,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(5),
-                            color: Color(0xFFF6E2DE), // set the background color
+                            color: role == 'Husband' ? blue1 :Color.fromRGBO(246, 226, 222, 1), // set the background color
                             border: Border.all(
-                              color: red2, // set the border color
+                              color: role == 'Husband' ? blue2 :red2, // set the border color
                               width: 1, // set the border width
                             ),
                           ),
@@ -557,12 +561,12 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           top: 220,
           left: 20,
           right: 20,
-          child: buildFloating(shrinkOffset, context),
+          child: buildFloating(shrinkOffset, context,authProvider.getUserData.role),
         ),
         Positioned(
           top: 90,
-          left: 280,
-          right: 50,
+          left: 260,
+          right: 40,
           child: buildChat(shrinkOffset),
         ),
       ],
@@ -581,7 +585,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
         ),
         Container(
           height: 275,
-          color: role == 'Husband' ? Color(0xFFD3ECFB) : Color.fromRGBO(246, 226, 222, 1),
+          color: role == 'Husband' ? blue1 : Color.fromRGBO(246, 226, 222, 1),
         ),
       ],
     );
@@ -637,8 +641,9 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     bool res = await FlutterPhoneDirectCaller.callNumber(number) as bool;
   }
 
-  Widget buildFloating(double shrinkOffset, BuildContext context) {
+  Widget buildFloating(double shrinkOffset, BuildContext context,String role) {
     DateTime now = DateTime.now();
+    role == 'Husband' ? blue1:Color.fromRGBO(246, 226, 222, 1);
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: Row(
@@ -652,7 +657,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               shape: RoundedRectangleBorder(
                 
                 borderRadius: BorderRadius.circular(18.0),
-                side: BorderSide(color: Color(0xffD49082), width: 1.0),
+                side: BorderSide(color: role == 'Husband' ? blue2 : kRed, width: 1.0),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -676,8 +681,8 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                         children: [
                           Text(
                             weekdays[now.weekday % 7],
-                            style: const TextStyle(
-                                color: Color.fromARGB(255, 235, 146, 140),
+                            style: TextStyle(
+                                color: role == 'Husband' ? blue2:kRed,
                                 fontSize: 18),
                           ),
                           Text(
@@ -706,7 +711,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
-                  side: BorderSide(color: Color(0xffD49082), width: 1.0),
+                  side: BorderSide(color: role == 'Husband' ? blue2 : kRed, width: 1.0),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -714,7 +719,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                     Column(
                       children: [
                         Image.asset("assets/editSOS.png"),
-                        Text('Edit SOS',style: TextStyle(color:_HomePageState.red2),)
+                        Text('Edit SOS',style: TextStyle(color: role == 'Husband' ? blue2:kRed),)
                       ],
                     ),
                   ],
@@ -759,7 +764,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   Widget buildAppBar(double shrinkOffset, String role, DateTime now) => Opacity(
         opacity: appear(shrinkOffset),
         child: AppBar(
-          backgroundColor: role == 'Husband' ? Colors.blue.shade100 :Color.fromRGBO(246, 226, 222, 1),
+          backgroundColor: role == 'Husband' ? blue1:Color.fromRGBO(246, 226, 222, 1),
           leading: Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Image.asset(role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
@@ -805,7 +810,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
     opacity: disappear(shrinkOffset),
     child: Container(
       child: Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(10.0),
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(4.0),
@@ -813,19 +818,19 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
               duration: Duration(milliseconds: 2600),
               curve: Curves.easeInOut,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: kRed,
                 borderRadius: BorderRadius.circular(8.0),
-                border: Border.all(color: Color.fromARGB(255, 2, 2, 2), width: 2.0),
+                border: Border.all(color: kRed, width: 2.0),
               ),
               child: AnimatedTextKit(
                 repeatForever: true,
                 animatedTexts: [
                   ScaleAnimatedText(
-                    'Click Me for help!',
+                    'Click me for HELP!',
                     duration: Duration(milliseconds: 2600),
                     textStyle:
-                        TextStyle(fontSize: 14, color: Colors.red.shade300),
-                    scalingFactor: 0.4,
+                        TextStyle(fontSize: 14, color: Colors.white,fontWeight: FontWeight.w500),
+                    scalingFactor: 0.6,
                   ),
                 ],
                 onTap: () {

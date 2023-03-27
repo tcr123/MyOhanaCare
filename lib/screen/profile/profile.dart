@@ -45,9 +45,11 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final name = authProvider.getUserData.name;
+    String role = authProvider.getUserData.role; 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: kRed,
+        backgroundColor: role == 'Husband' ? blue1 :kRedBackground,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image(
@@ -57,6 +59,7 @@ class _ProfileState extends State<Profile> {
           ),
         ),
         actions: <Widget>[
+          
           Row(
             children: [
               Text(
@@ -90,6 +93,10 @@ class _ProfileState extends State<Profile> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                Text("$name",style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600)),
                 Container(
                   width: 120,
                   height: 140,
@@ -101,20 +108,78 @@ class _ProfileState extends State<Profile> {
                           fit: BoxFit.fill)),
                 ),
                 const SizedBox(height: 15),
-                Text('Hi, $name',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400)),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.10),
+                
+                
+                
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.22,
+                  width: 370,
+
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: role == 'Husband' ? blue2 :kRed,                     
+                      width: 1.5,                     
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        Text('Spouse Details',style:TextStyle(
+                          color: Colors.black,fontSize: 18,fontWeight: FontWeight.w500
+                        )),
+
+                        const SizedBox(height: 10),
+
+                        Divider(color: role == 'Husband' ? blue2 :kRed,
+                        thickness: 1.5),
+                        const SizedBox(height: 10),
+
+                        Row(
+                          children: [
+                            Text("Username:", style:TextStyle(
+                          color: Colors.black,fontSize: 16
+                        )),
+                            Text(" $name", style:TextStyle(
+                          color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
+                        )),
+                          ],
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Row(
+                          children: [
+                            Text("Email address:", style:TextStyle(
+                          color: Colors.black,fontSize: 16
+                        )),
+                            Text(" $name", style:TextStyle(
+                          color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
+                        )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+
+
+
+                SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 Column(
                   children: [
                     if (authProvider.getUserData.role == "Husband")
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        width: MediaQuery.of(context).size.width * 0.9,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              primary: Color.fromARGB(255, 217, 217, 217),
+                              primary: role == 'Husband' ? blue2 :kRed,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20))),
                           onPressed: () {
@@ -126,18 +191,37 @@ class _ProfileState extends State<Profile> {
                           },
                           child: const Text("Connect to Spouse",
                               style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
+                                  color: Colors.white,
+                                  fontSize: 15,
                                   fontWeight: FontWeight.w400)),
                         ),
                       ),
-                    const SizedBox(height: 15),
-                    const SizedBox(height: 15),
+                    
+                    if (authProvider.getUserData.role == "Husband")
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: role == 'Husband' ? blue2 :kRed,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                          onPressed: () {
+                            //remove spouse
+                          },
+                          child: const Text("Remove Spouse",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400)),
+                        ),
+                      ),
+
+
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.9,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            primary: Color.fromARGB(255, 217, 217, 217),
+                            primary: role == 'Husband' ? blue2 :kRed,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20))),
                         onPressed: () {
@@ -148,8 +232,8 @@ class _ProfileState extends State<Profile> {
                         },
                         child: const Text("Sign Out",
                             style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
+                                color: Colors.white,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w400)),
                       ),
                     ),

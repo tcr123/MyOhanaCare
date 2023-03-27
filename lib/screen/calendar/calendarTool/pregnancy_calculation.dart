@@ -43,7 +43,7 @@ class _PregnancyCalculationState extends State<PregnancyCalculation> {
     
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kRed,
+        backgroundColor: kRedBackground,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image(
@@ -204,6 +204,7 @@ class _PregnancyCalculationState extends State<PregnancyCalculation> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: kRed,
+                            disabledBackgroundColor: kRed,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
                           ),
                           onPressed: _formKey.currentState == null || !_formKey.currentState!.validate() ? null : () {
@@ -217,7 +218,7 @@ class _PregnancyCalculationState extends State<PregnancyCalculation> {
                               Navigator.pop(context, 'success');
                             });
                           },
-                          child: const Text("Save"),
+                          child: const Text("Save",style: TextStyle(color: Colors.white)),
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.08),

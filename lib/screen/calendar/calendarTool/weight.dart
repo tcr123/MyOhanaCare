@@ -176,6 +176,7 @@ class _WeightState extends State<Weight> {
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: kYellowBackground,
+                            disabledBackgroundColor: kYellowBackground,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
                           ),
                           onPressed: _formKey.currentState == null || !_formKey.currentState!.validate() ? null : () {
@@ -189,7 +190,7 @@ class _WeightState extends State<Weight> {
                               Navigator.pop(context, 'success'); 
                             });
                           },
-                          child: const Text("Save"),
+                          child: const Text("Save",style: TextStyle(color: Colors.white),),
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.08),

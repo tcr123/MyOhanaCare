@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:ohana_care/constant.dart';
 import 'package:ohana_care/screen/auth/connect_spouse_successful.dart';
 import 'package:ohana_care/screen/auth/sign_in.dart';
 import 'package:ohana_care/widget/input_field.dart';
@@ -40,7 +41,7 @@ class _ConnectSpouseState extends State<ConnectSpouse> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
                   child: const Text(
-                    'CONNECT YOUR WIFE',
+                    'CONNECT YOUR SPOUSE',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white, 
@@ -54,7 +55,9 @@ class _ConnectSpouseState extends State<ConnectSpouse> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      
                       InputField(
+                        
                         hide: false,
                         hintText: "Your Wife Email",
                         onChanged: (value) {
@@ -70,7 +73,10 @@ class _ConnectSpouseState extends State<ConnectSpouse> {
                             return null;
                           }
                         },
+                        
+                        
                       ),
+                      
                     ]
                   ),
                 ),
@@ -81,8 +87,9 @@ class _ConnectSpouseState extends State<ConnectSpouse> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.black,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
+                          primary: Colors.white,
+                          disabledBackgroundColor: blue1,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
                         ),
                         onPressed: _formKey.currentState == null || !_formKey.currentState!.validate() ? null : () {
                           FocusScope.of(context).unfocus();
@@ -109,7 +116,7 @@ class _ConnectSpouseState extends State<ConnectSpouse> {
                             }
                           });
                         },
-                        child: const Text("Connect to Spouse"),
+                        child: const Text("Connect to Spouse",style: TextStyle(color: blue3),),
                       ),
                     ),
                   ],
