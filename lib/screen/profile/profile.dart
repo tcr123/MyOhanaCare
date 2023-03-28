@@ -112,7 +112,7 @@ class _ProfileState extends State<Profile> {
                 
                 
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.22,
+                  height: MediaQuery.of(context).size.height * 0.32,
                   width: 370,
 
                   decoration: BoxDecoration(
@@ -163,6 +163,34 @@ class _ProfileState extends State<Profile> {
                         )),
                           ],
                         ),
+                        Divider(color: role == 'Husband' ? blue2 :kRed,
+                        thickness: 1.5),
+                        const SizedBox(height: 10),
+
+                        Row(
+                          children: [
+                            Text("Local Emergency Contact: ", style:TextStyle(
+                          color: Colors.black,fontSize: 16
+                        )),
+                            Text(" $name", style:TextStyle(
+                          color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
+                        )),
+                          ],
+                        ),
+
+                        const SizedBox(height: 10),
+
+                        Row(
+                          children: [
+                            Text("Personal Emergency Contact: ", style:TextStyle(
+                          color: Colors.black,fontSize: 16
+                        )),
+                            Text(" $name", style:TextStyle(
+                          color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
+                        )),
+                          ],
+                        ),
+
                       ],
                     ),
                   ),
