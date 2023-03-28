@@ -7,11 +7,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:ohana_care/provider/auth_provider.dart';
 import 'package:ohana_care/provider/calendar_provider.dart';
 import 'package:ohana_care/screen/auth/sign_in.dart';
-import 'package:provider/provider.dart';
+import 'package:ohana_care/voicegpt/chatScreen.dart';
+import 'package:provider/provider.dart' as provide;
 import 'package:ohana_care/provider/chat_provider.dart';
 import 'package:ohana_care/provider/models_provider.dart';
 import 'package:ohana_care/provider/education_provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
@@ -61,11 +63,7 @@ void main() async {
       .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
-  initializeDateFormatting().then((_) => runApp(MultiProvider(providers: [
-    ChangeNotifierProvider.value(value: AuthProvider()),
-    ChangeNotifierProvider.value(value: CalendarProvider()),
-    ChangeNotifierProvider.value(value: EducationProvider()),
-  ], child: const MyApp())));
+  initializeDateFormatting().then((_) => runApp(const ProviderScope(child: MyApp())));
   EasyLoading.instance
     ..indicatorType = EasyLoadingIndicatorType.dualRing
     ..maskType = EasyLoadingMaskType.custom
@@ -81,14 +79,17 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return provide.MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ModelProvider()),
-        ChangeNotifierProvider(create: (_) => ChatProvider())
+        provide.ChangeNotifierProvider(create: (_) => AuthProvider()),
+        provide.ChangeNotifierProvider(create: (_) => CalendarProvider()),
+        provide.ChangeNotifierProvider(create: (_) => ModelProvider()),
+        provide.ChangeNotifierProvider(create: (_) => ChatProvider()),
+        provide.ChangeNotifierProvider(create: (_) => EducationProvider())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

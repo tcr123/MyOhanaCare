@@ -649,7 +649,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
       child: Row(
         children: [
           SizedBox(
-            width: 250,
+            width: MediaQuery.of(context).size.width * 0.61,
             height: 100,
             child: Card(
           
@@ -706,7 +706,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
                 );
             },
             child: SizedBox(
-              width: 120,
+              width: MediaQuery.of(context).size.width * 0.28,
               height: 100,
               child: Card(
                 shape: RoundedRectangleBorder(
