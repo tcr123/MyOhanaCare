@@ -611,6 +611,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
       opacity: disappear(shrinkOffset),
       child: GestureDetector(
         onTap: () async {
+          bool res = await FlutterPhoneDirectCaller.callNumber(number) as bool;
           // _calledNumber;
           var url = Uri.parse('https://sticheapi.vercel.app/api/token');
           var response = await http.get(url,
