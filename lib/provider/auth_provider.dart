@@ -8,6 +8,7 @@ import 'package:ohana_care/model/user.dart';
 
 class AuthProvider extends ChangeNotifier {
   late User user;
+  User? spouse;
 
   List<Information> education=[];
 
@@ -15,8 +16,46 @@ class AuthProvider extends ChangeNotifier {
     return user;
   }
 
+  User? get getSpouseData {
+    return spouse;
+  }
+
   List<Information> get getEducation {
     return education;
+  }
+
+  Future<void> getYourSpouse(String token) async {
+    try {
+      var url = Uri.parse('https://sticheapi.vercel.app/api/link');
+      var response = await http.get(url,
+          headers: {
+            "Authorization": "Bearer $token"
+          });
+      var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
+
+      if (response.statusCode == 200) {
+        spouse = User(
+            id: '',
+            email: jsonResponse['data']['spouse']['email'],
+            name: jsonResponse['data']['spouse']['name'],
+            role: jsonResponse['data']['spouse']['role'],
+            age: jsonResponse['data']['spouse']['age'],
+            married: jsonResponse['data']['spouse']['married'],
+            children: jsonResponse['data']['spouse']['children'],
+            menstrual: jsonResponse['data']['spouse']['menstrual'],
+            localEmergencyNumber: jsonResponse['data']['spouse']['local_emergency_number'] ?? '',
+            phoneEmergencyNumber: jsonResponse['data']['spouse']['personal_contact_info'] ?? '');
+
+        notifyListeners();
+      } else if (response.statusCode == 403) {
+        return;
+      } else {
+        return;
+      }
+    } catch (error) {
+      return;
+    }
   }
 
   Future<User?> connectYourSpouse(String email, String token) async {
@@ -29,7 +68,6 @@ class AuthProvider extends ChangeNotifier {
           },
           body: jsonEncode({'email': email}));
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
 
       if (jsonResponse['message'] == "200 success") {
         return User(
@@ -40,7 +78,9 @@ class AuthProvider extends ChangeNotifier {
             age: jsonResponse['spouse']['age'],
             married: jsonResponse['spouse']['married'],
             children: jsonResponse['spouse']['children'],
-            menstrual: jsonResponse['spouse']['menstrual']);
+            menstrual: jsonResponse['spouse']['menstrual'],
+            localEmergencyNumber: jsonResponse['spouse']['local_emergency_number'] ?? '',
+            phoneEmergencyNumber: jsonResponse['spouse']['personal_contact_info'] ?? '');
       } else if (jsonResponse["message"] == "403 invalid") {
         return null;
       } else {
@@ -48,6 +88,33 @@ class AuthProvider extends ChangeNotifier {
       }
     } catch (error) {
       return null;
+    }
+  }
+
+  Future<void> saveEmergencyNumber(String localEmergency, String personalEmergency, String token) async {
+    try {
+      var url = Uri.parse('https://sticheapi.vercel.app/api/user');
+      var response = await http.put(url,
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer $token"
+          },
+          body: jsonEncode({
+            'local_emergency_number': localEmergency,
+            'personal_contact_info': personalEmergency
+          }));
+      var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
+
+      if (jsonResponse['message'] == "200 success") {
+        return;
+      } else if (jsonResponse["message"] == "403 invalid") {
+        return;
+      } else {
+        return;
+      }
+    } catch (error) {
+      return;
     }
   }
 
@@ -73,7 +140,11 @@ class AuthProvider extends ChangeNotifier {
             age: jsonResponse['user']['age'],
             married: jsonResponse['user']['married'],
             children: jsonResponse['user']['children'],
-            menstrual: jsonResponse['user']['menstrual']);
+            menstrual: jsonResponse['user']['menstrual'],
+            localEmergencyNumber: jsonResponse['user']['local_emergency_number'] ?? '',
+            phoneEmergencyNumber: jsonResponse['user']['personal_contact_info'] ?? '');
+        
+        await getYourSpouse(jsonResponse['token']);
 
         notifyListeners();
 
@@ -116,7 +187,9 @@ class AuthProvider extends ChangeNotifier {
             age: signUpUser.age,
             married: signUpUser.married,
             children: signUpUser.children,
-            menstrual: signUpUser.menstrual);
+            menstrual: signUpUser.menstrual,
+            localEmergencyNumber: '',
+            phoneEmergencyNumber: '');
 
         notifyListeners();
 

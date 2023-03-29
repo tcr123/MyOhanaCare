@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ohana_care/screen/auth/sign_up.dart';
 import 'package:ohana_care/screen/auth/sign_in.dart';
 import '../../constant.dart';
+import '../../model/user.dart';
 import '../../provider/auth_provider.dart';
 
 class Profile extends StatefulWidget {
@@ -45,7 +46,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final name = authProvider.getUserData.name;
-    String role = authProvider.getUserData.role; 
+    String role = authProvider.getUserData.role;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -59,7 +60,6 @@ class _ProfileState extends State<Profile> {
           ),
         ),
         actions: <Widget>[
-          
           Row(
             children: [
               Text(
@@ -143,11 +143,11 @@ class _ProfileState extends State<Profile> {
                         Row(
                           children: [
                             Text("Username:", style:TextStyle(
-                          color: Colors.black,fontSize: 16
-                        )),
-                            Text(" $name", style:TextStyle(
-                          color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
-                        )),
+                              color: Colors.black,fontSize: 16
+                            )),
+                                Text(" ${authProvider.getSpouseData != null ? authProvider.getSpouseData!.name : ' -'}", style:TextStyle(
+                              color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
+                            )),
                           ],
                         ),
 
@@ -158,7 +158,7 @@ class _ProfileState extends State<Profile> {
                             Text("Email address:", style:TextStyle(
                           color: Colors.black,fontSize: 16
                         )),
-                            Text(" $name", style:TextStyle(
+                            Text(" ${authProvider.getSpouseData != null ? authProvider.getSpouseData!.email : ' -'}", style:TextStyle(
                           color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
                         )),
                           ],
@@ -172,7 +172,7 @@ class _ProfileState extends State<Profile> {
                             Text("Local Emergency Contact: ", style:TextStyle(
                           color: Colors.black,fontSize: 16
                         )),
-                            Text(" $name", style:TextStyle(
+                            Text(" ${authProvider.getSpouseData != null ? authProvider.getSpouseData!.localEmergencyNumber : ' -'}", style:TextStyle(
                           color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
                         )),
                           ],
@@ -185,7 +185,7 @@ class _ProfileState extends State<Profile> {
                             Text("Personal Emergency Contact: ", style:TextStyle(
                           color: Colors.black,fontSize: 16
                         )),
-                            Text(" $name", style:TextStyle(
+                            Text(" ${authProvider.getSpouseData != null ? authProvider.getSpouseData!.phoneEmergencyNumber : ' -'}", style:TextStyle(
                           color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500
                         )),
                           ],

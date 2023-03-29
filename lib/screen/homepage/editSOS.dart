@@ -1,18 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:ohana_care/constant.dart';
+import 'package:provider/provider.dart';
 
-class editSOS extends StatelessWidget {
+import '../../provider/auth_provider.dart';
+
+class editSOS extends StatefulWidget {
   const editSOS({super.key});
 
   @override
+  State<editSOS> createState() => _editSOSState();
+}
+
+class _editSOSState extends State<editSOS> {
+  late TextEditingController _localEmergencyController;
+  late TextEditingController _personalEmergencyController;
+
+  @override
+  void initState() {
+    super.initState();
+    _localEmergencyController = TextEditingController();
+    _personalEmergencyController = TextEditingController();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(246, 226, 222, 1),
+        backgroundColor: authProvider.getUserData.role == 'Husband' ? blue1 :kRedBackground,
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Image.asset('assets/male_stitch.png'),
+          child: authProvider.getUserData.role == 'Husband' ? Image.asset('assets/male_stitch.png') : Image.asset('assets/female_stitch.png'),
         ),
         actions: <Widget>[
           Row(
@@ -58,9 +78,10 @@ class editSOS extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
                 child: TextField(
+                  controller: _localEmergencyController,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color.fromRGBO(246, 226, 222, 1),
+                    fillColor: authProvider.getUserData.role == 'Husband' ? blue1 :kRedBackground,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none
@@ -78,9 +99,10 @@ class editSOS extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
                 child: TextField(
+                  controller: _personalEmergencyController,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color.fromRGBO(246, 226, 222, 1),
+                    fillColor: authProvider.getUserData.role == 'Husband' ? blue1 :kRedBackground,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none,
@@ -96,7 +118,7 @@ class editSOS extends StatelessWidget {
                   child: Container(
                     width: 250,
                     decoration: BoxDecoration(
-                      color:  Color(0xffD49082),
+                      color:  authProvider.getUserData.role == 'Husband' ? blue2 :kRed,
                       borderRadius:
                           BorderRadius.circular(20), // set the border radius
                     ),
@@ -104,7 +126,11 @@ class editSOS extends StatelessWidget {
                       child: const Text('Save',
                           style: TextStyle(
                               color: Color.fromARGB(221, 255, 255, 255))),
-                      onPressed: () {},
+                      onPressed: () {
+                        authProvider.saveEmergencyNumber(_localEmergencyController.text, _personalEmergencyController.text, authProvider.getUserData.id).then((value) {
+                          Navigator.pop(context);
+                        });
+                      },
                     ),
                   ),
                 ),

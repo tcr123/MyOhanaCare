@@ -366,7 +366,7 @@ Widget dailyEvents(List<EventData> events, BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                
+                const SizedBox(height: 20),
                 ...events.map((event) =>
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0, bottom: 10),

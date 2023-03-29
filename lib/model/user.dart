@@ -8,6 +8,8 @@ class User {
   String married;
   String children;
   String menstrual;
+  String localEmergencyNumber;
+  String phoneEmergencyNumber;
 
   User ({
     required this.id,
@@ -17,6 +19,8 @@ class User {
     required this.age,
     required this.married,
     required this.children,
-    required this.menstrual
+    required this.menstrual,
+    required this.localEmergencyNumber,
+    required this.phoneEmergencyNumber
   });
 }
