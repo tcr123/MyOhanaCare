@@ -19,8 +19,6 @@ class AuthProvider extends ChangeNotifier {
     return education;
   }
 
-  
-
   Future<User?> connectYourSpouse(String email, String token) async {
     try {
       var url = Uri.parse('https://sticheapi.vercel.app/api/link');
