@@ -243,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(((weekLeft.inDays / 7).toInt() + 1).toString(), style: TextStyle(color: Colors.black)),
+                                Text(((checkingPhase.inDays / 7).toInt() + 1).toString(), style: const TextStyle(color: Colors.black)),
                                 const Text("Weeks", style: TextStyle(color: Colors.black)),
                               ],
                             ),
@@ -366,7 +366,7 @@ Widget dailyEvents(List<EventData> events, BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                
+                const SizedBox(height: 20),
                 ...events.map((event) =>
                   Padding(
                     padding: const EdgeInsets.only(left: 20.0, bottom: 10),
