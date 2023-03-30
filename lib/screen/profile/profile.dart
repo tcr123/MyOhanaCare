@@ -15,6 +15,7 @@ class Profile extends StatefulWidget {
   State<Profile> createState() => _ProfileState();
 }
 
+// show the information detail of wife/husband and its spouse
 class _ProfileState extends State<Profile> {
   DateTime now = DateTime.now().toLocal();
   

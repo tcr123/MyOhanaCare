@@ -11,6 +11,7 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
+// first page for sign up
 class _SignUpState extends State<SignUp> {
   String email = "";
   String userName = "";

@@ -25,12 +25,14 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 
+// receive notification background
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   print('A background message just showed up: ${message.messageId}');
   await showNotification(message);
 }
 
+// show notification
 Future<void> showNotification(RemoteMessage message) async {
   await flutterLocalNotificationsPlugin.show(
     message.hashCode,

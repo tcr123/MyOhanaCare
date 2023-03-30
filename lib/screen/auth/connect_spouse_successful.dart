@@ -13,6 +13,7 @@ class ConnectSpouseSuccessful extends StatefulWidget {
   State<ConnectSpouseSuccessful> createState() => _ConnectSpouseSuccessfulState();
 }
 
+// show connect spouse success
 class _ConnectSpouseSuccessfulState extends State<ConnectSpouseSuccessful> {
   String email = "";
 

@@ -24,6 +24,7 @@ class _EducationState extends State<Education> {
   int selectedIndex = -1;
   Set<String> categories = Set(); // Define a Set to hold unique categories
 
+  // fetch education data from backend
   @override
   void initState() {
     super.initState();

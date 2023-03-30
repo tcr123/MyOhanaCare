@@ -52,7 +52,8 @@ class _HomePageState extends State<HomePage> {
 
   List<EventData> _futureUserEvents = [];
   PregnancyData? _futurePregnancyDate;
-
+  
+  // homepage that will show pregnancy info, events and education of this app
   @override
   void initState() {
     super.initState();
@@ -61,6 +62,7 @@ class _HomePageState extends State<HomePage> {
         Provider.of<EducationProvider>(context, listen: false);
 
     final calendarProvider = Provider.of<CalendarProvider>(context, listen: false);
+    // fetch education and calendar data 
     WidgetsBinding.instance.addPostFrameCallback((_){
       educationProvider.fetchEducation(authProvider.getUserData.id).then((value){
         setState(() {
@@ -89,6 +91,7 @@ class _HomePageState extends State<HomePage> {
     getToken(authProvider.getUserData.id);
   }
 
+  // request the permission to receive notification
   void requestPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
@@ -111,6 +114,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // get Token for this phone by firebase messaging
   void getToken(String id) async {
     await FirebaseMessaging.instance.getToken().then((token) {
       setState(() {
@@ -120,6 +124,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  // save Token which is get from firebase messaging
   void saveToken(String token, String id) async {
     var url = Uri.parse('https://sticheapi.vercel.app/api/token');
     var response = await http.post(url,
@@ -175,6 +180,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // daily Highlight will show the pregnancy data of wife to husband and wife
   Widget dailyHighlight(PregnancyData pregnancyData,String role) {
     DateTime startDay = DateTime.parse(pregnancyData.lastDayPeriod);
     startDay = DateTime.utc(startDay.year, startDay.month, startDay.day);
@@ -339,6 +345,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+// show dailyEvents of wife and husband
 Widget dailyEvents(List<EventData> events, BuildContext context) {
   return Padding(
     padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
@@ -415,6 +422,7 @@ Widget dailyEvents(List<EventData> events, BuildContext context) {
   );
 }
 
+// show education info related to wife care 
 Widget education(BuildContext context, List<Information> futureInformation) {
   return Padding(
     padding: EdgeInsets.fromLTRB(20, 0, 20, 10),

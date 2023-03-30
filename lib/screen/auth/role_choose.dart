@@ -12,6 +12,7 @@ class RoleChoose extends StatefulWidget {
   State<RoleChoose> createState() => _RoleChooseState();
 }
 
+// page for role choose
 class _RoleChooseState extends State<RoleChoose> {
   bool _isHusband = false;
   bool _isWife = false;
