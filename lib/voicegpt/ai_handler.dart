@@ -2,7 +2,7 @@ import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
 class AIHandler {
   final _openAI = OpenAI.instance.build(
-    token: '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',
+    token: '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',
     baseOption: HttpSetup(
       receiveTimeout: const Duration(seconds: 60),
       connectTimeout: const Duration(seconds: 60),
@@ -22,6 +22,8 @@ class AIHandler {
 
       return 'Some thing went wrong';
     } catch (e) {
+      print(e);
+      print("hello return");
       return 'Bad response';
     }
   }

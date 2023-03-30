@@ -129,9 +129,8 @@ class AuthProvider extends ChangeNotifier {
             'auth': 'login',
           }));
       var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
 
-      if (jsonResponse['message'] == "200 success") {
+      if (response.statusCode == 200) {
         user = User(
             id: jsonResponse['token'],
             email: jsonResponse['user']['email'],
@@ -149,7 +148,7 @@ class AuthProvider extends ChangeNotifier {
         notifyListeners();
 
         return "200 success";
-      } else if (jsonResponse["message"] == "403 invalid") {
+      } else if (response.statusCode == 403) {
         return "403 invalid";
       } else {
         return "404 not found";

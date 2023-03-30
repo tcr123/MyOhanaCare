@@ -562,7 +562,7 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
           top: 80,
           left: 20,
           right: 20,
-          child: buildButton(shrinkOffset, authProvider.getUserData.role, authProvider.getUserData.id),
+          child: buildButton(shrinkOffset, authProvider.getUserData.role, authProvider.getUserData.localEmergencyNumber, authProvider.getUserData.id),
         ),
         
         Positioned(
@@ -614,12 +614,12 @@ class CustomSliverDelegate extends SliverPersistentHeaderDelegate {
   //       ),
   //     );
 
-  Widget buildButton(double shrinkOffset, String role, String token) {
+  Widget buildButton(double shrinkOffset, String role, String localEmergencyNumber, String token) {
     return Opacity(
       opacity: disappear(shrinkOffset),
       child: GestureDetector(
         onTap: () async {
-          bool res = await FlutterPhoneDirectCaller.callNumber(number) as bool;
+          bool res = await FlutterPhoneDirectCaller.callNumber(localEmergencyNumber) as bool;
           // _calledNumber;
           var url = Uri.parse('https://sticheapi.vercel.app/api/token');
           var response = await http.get(url,
