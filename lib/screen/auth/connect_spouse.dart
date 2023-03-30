@@ -15,6 +15,7 @@ class ConnectSpouse extends StatefulWidget {
   State<ConnectSpouse> createState() => _ConnectSpouseState();
 }
 
+// page for connect spouse
 class _ConnectSpouseState extends State<ConnectSpouse> {
   String email = "";
   final _formKey = GlobalKey<FormState>();
@@ -51,6 +52,7 @@ class _ConnectSpouseState extends State<ConnectSpouse> {
                   )
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+                // checking for validation
                 Form(
                   key: _formKey,
                   child: Column(
@@ -91,6 +93,7 @@ class _ConnectSpouseState extends State<ConnectSpouse> {
                           disabledBackgroundColor: blue1,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
                         ),
+                        // if validation is passed user is able to connect the spouse based on the email entered
                         onPressed: _formKey.currentState == null || !_formKey.currentState!.validate() ? null : () {
                           FocusScope.of(context).unfocus();
                           EasyLoading.show(status: "Connect Your Spouse......");

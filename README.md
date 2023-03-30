@@ -17,13 +17,13 @@ Ohana Cares has two interconnected modules: one for Jill assisted by Stitchie an
 ## Installation
 
 1. Clone the repository: 
-git clone https://github.com/tcr123/MyOhanaCare.git
+- git clone https://github.com/tcr123/MyOhanaCare.git
 
 2. Change to the project directory:
-cd MyOhanaCare
+- cd MyOhanaCare
 
 3. Install the required dependencies:
-flutter pub get
+- flutter pub get
 
 
 ## Usage
@@ -31,19 +31,19 @@ flutter pub get
 1. Open the project in Android Studio or Visual Studio Code.
 
 2. To run the app on an emulator or physical device, execute the following command in the terminal or use the IDE's built-in tools:
-flutter run
+- flutter run
 
 3. To build the app for Android or iOS, use the following commands:
-For Android:
-flutter build apk
+- For Android:
+    - flutter build apk
 
-For iOS:
-flutter build iOS
+- For iOS:
+    - flutter build iOS
 
 ## Screenshots
 
 ## Contributing
-If you'd like to contribute to the project, please submit a pull request or open an issue with your suggestion
+If you'd like to contribute to the project, please submit a pull request or open an issue with your suggestion.
 
 ## Credits
 This project uses the following external resources:
@@ -72,5 +72,5 @@ This project uses the following external resources:
 ## Contact
 If you have any questions or feedback, feel free to contact me at:
 
-Email: chunrong1805@gmail.com
-Phone Number: 017-5307898
+- Email: chunrong1805@gmail.com
+- Phone Number: 017-5307898

@@ -13,6 +13,7 @@ class editSOS extends StatefulWidget {
   State<editSOS> createState() => _editSOSState();
 }
 
+// editSOS is use to update the local emergency phone number and personal contact number
 class _editSOSState extends State<editSOS> {
   late TextEditingController _localEmergencyController;
   late TextEditingController _personalEmergencyController;

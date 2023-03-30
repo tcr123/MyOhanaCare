@@ -159,6 +159,7 @@ class _CalendarState extends State<Calendar> {
     return _events[day] ?? [];
   }
 
+  // fetch all data in the calendar and loads
   @override
   void initState() {
     super.initState();
@@ -220,6 +221,7 @@ class _CalendarState extends State<Calendar> {
     });
   }
 
+  // loads the data once the user update the information of calendar
   void onRefresh() async {
     _events = {};
 
@@ -279,6 +281,7 @@ class _CalendarState extends State<Calendar> {
     });
   }
 
+  // for user to key in the information for calendar
   _showToolsForCalendar() async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     String role= authProvider.getUserData.role; 

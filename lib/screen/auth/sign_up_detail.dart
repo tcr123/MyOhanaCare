@@ -18,6 +18,7 @@ class SignUpDetail extends StatefulWidget {
   State<SignUpDetail> createState() => _SignUpDetailState();
 }
 
+// sign up page for user
 class _SignUpDetailState extends State<SignUpDetail> {
   String age = "";
   String married = "";
@@ -175,6 +176,7 @@ class _SignUpDetailState extends State<SignUpDetail> {
                               primary: Colors.black,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16))),
+                                  // check for validation if passed then sign up successful
                           onPressed: _formKey.currentState == null ||
                                   !_formKey.currentState!.validate()
                               ? null

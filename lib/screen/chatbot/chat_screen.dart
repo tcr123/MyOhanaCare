@@ -17,6 +17,7 @@ class ChatScreen extends StatefulWidget {
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
+// chat screen
 class _ChatScreenState extends State<ChatScreen> {
   bool _isTyping = false;
 

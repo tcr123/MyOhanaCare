@@ -14,6 +14,7 @@ class SignIn extends StatefulWidget {
   State<SignIn> createState() => _SignInState();
 }
 
+// user sign in
 class _SignInState extends State<SignIn> {
   TextEditingController email_controller = TextEditingController();
   TextEditingController password_controller = TextEditingController();
@@ -113,6 +114,7 @@ class _SignInState extends State<SignIn> {
                         style: TextStyle(color: Colors.red))
                     : const Text(""),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+                // Go to sign in if all validation is passed
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: ElevatedButton(
@@ -121,6 +123,7 @@ class _SignInState extends State<SignIn> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16))),
                     onPressed: () {
+                      // if sign in success log in to app else show error messages
                       FocusScope.of(context).unfocus();
                       EasyLoading.show(status: "Sign in......");
                       authProvider
@@ -171,6 +174,7 @@ class _SignInState extends State<SignIn> {
                   height: 10,
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                // Go to sign up if don't have account
                 InkWell(
                   highlightColor: Colors.transparent,
                   splashColor: Colors.transparent,

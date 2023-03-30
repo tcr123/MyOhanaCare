@@ -12,6 +12,7 @@ class RegisterSuccessful extends StatefulWidget {
   State<RegisterSuccessful> createState() => _RegisterSuccessfulState();
 }
 
+// page for showing register successful
 class _RegisterSuccessfulState extends State<RegisterSuccessful> {
   @override
   Widget build(BuildContext context) {
