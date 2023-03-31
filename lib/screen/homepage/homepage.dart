@@ -202,6 +202,8 @@ class _HomePageState extends State<HomePage> {
 
     String phase = "";
     Duration checkingPhase = now.difference(startDay);
+    print("migrate");
+    print((checkingPhase.inDays / 7).toInt() + 1);
     if ((checkingPhase.inDays / 7) + 1 >= 1 && (checkingPhase.inDays / 7) + 1 <= 13) {
       phase = "first trimester";
     } else if ((checkingPhase.inDays / 7) + 1 >= 14 && (checkingPhase.inDays / 7) + 1 <= 27) {
@@ -297,30 +299,96 @@ class _HomePageState extends State<HomePage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          if ((checkingPhase.inDays / 7) + 1 >= 1 && (checkingPhase.inDays / 7) + 1 <= 7)
+                          if ((checkingPhase.inDays / 7).toInt() + 1 >= 1 && (checkingPhase.inDays / 7).toInt() + 1 <= 7) 
                             role == 'Husband' 
-                            ? const Text("Did you know that your baby's heart begins to beat during the first few weeks of pregnancy? Learn more about your baby's development and how it affects your wife's body in the first trimester.")
-                            : const Text("Is your baby already hiccupping? Discover the amazing developments during the first half of the first trimester!")
-                          else if ((checkingPhase.inDays / 7) + 1 >= 8 && (checkingPhase.inDays / 7) + 1 <= 13)
+                            ? Column(
+                              children: const [
+                                Text("Did you know that your baby's heart begins to beat during the first few weeks of pregnancy?", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Learn more about your baby's development and how it affects your wife's body in the first trimester.")
+                              ],
+                            )
+                            : const Text("Discover the amazing developments during the first half of the first trimester!", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),)
+                          else if ((checkingPhase.inDays / 7).toInt() + 1 >= 8 && (checkingPhase.inDays / 7).toInt() + 1 <= 13)
                             role == 'Husband'
-                            ? const Text("Did you know that your baby is already growing fingernails and toenails at 12 weeks? Learn more about your baby's development and how to support your wife during the second half of the first trimester.")
-                            : const Text("Did you know your baby's brain starts to form during the second half of the first trimester? Learn about the incredible developments happening in your little one's body in the early stages of pregnancy.")
+                            ? Column(
+                              children: const [
+                                Text("Did you know that your baby is already growing fingernails and toenails at 12 weeks?", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Learn more about your baby's development and how to support your wife during the second half of the first trimester.")
+                              ],
+                            )
+                            : Column(
+                              children: const [
+                                Text("Did you know your baby's brain starts to form during the second half of the first trimester? ", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Learn about the incredible developments happening in your little one's body in the early stages of pregnancy.")
+                              ],
+                            )
                           else if ((checkingPhase.inDays / 7) + 1 >= 14 && (checkingPhase.inDays / 7) + 1 <= 20)
                             role == 'Husband'
-                            ? const Text("Dads, did you know your baby's senses are developing rapidly in the second trimester? Read on to find out more!")
-                            : const Text("Did you know your baby's senses are developing rapidly during the second trimester? Discover the amazing changes happening in your little one's body and what it means for their future.")
+                            ? Column(
+                              children: const [
+                                Text("Dads, did you know your baby's senses are developing rapidly in the second trimester?", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Read on to find out more!")
+                              ],
+                            )
+                            : Column(
+                              children: const [
+                                Text("Did you know your baby's senses are developing rapidly during the second trimester?  ", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Discover the amazing changes happening in your little one's body and what it means for their future.")
+                              ],
+                            )
                           else if ((checkingPhase.inDays / 7) + 1 >= 21 && (checkingPhase.inDays / 7) + 1 <= 27) 
                             role == 'Husband'
-                            ? const Text("Is your baby practicing breathing in the womb? Read on to find out more!")
-                            : const Text("Baby's taste buds are developing! What foods should you be eating?")
+                            ? Column(
+                              children: const [
+                                Text("Is your baby practicing breathing in the womb?", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Read on to find out more!")
+                              ],
+                            )
+                            : Column(
+                              children: const [
+                                Text("Baby's taste buds are developing!  ", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("What foods should you be eating?")
+                              ],
+                            )
                           else if ((checkingPhase.inDays / 7) + 1 >= 28 && (checkingPhase.inDays / 7) + 1 <= 34)
                             role == 'Husband'
-                            ? const Text("Did you know that your baby's eyes are developing rapidly during the first half of the 3rd trimester? Find out more about your baby's development and how you can support your wife during this crucial stage of pregnancy.")
-                            : const Text("Did you know your baby is practicing their breathing in the womb? Learn more fascinating facts about your baby's development in the first half of the third trimester.")
+                            ? Column(
+                              children: const [
+                                Text("Did you know that your baby's eyes are developing rapidly during the first half of the 3rd trimester?", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Find out more about your baby's development and how you can support your wife during this crucial stage of pregnancy.")
+                              ],
+                            )
+                            : Column(
+                              children: const [
+                                Text("Did you know your baby is practicing their breathing in the womb? ", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Learn more fascinating facts about your baby's development in the first half of the third trimester")
+                              ],
+                            )
                           else if ((checkingPhase.inDays / 7) + 1 >= 35 && (checkingPhase.inDays / 7) + 1 <= 40)
                             role == 'Husband'
-                            ? const Text("Get ready to meet your little one! Discover how your baby is putting on the finishing touches and your wife's body is preparing for labor and delivery in the final weeks of pregnancy.")
-                            : const Text("Did you know that your baby's immune system is getting stronger every day during the third trimester? Read on to find out more!"),
+                            ? Column(
+                              children: const [
+                                Text("Get ready to meet your little one!", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Discover how your baby is putting on the finishing touches and your wife's body is preparing for labor and delivery in the final weeks of pregnancy.")
+                              ],
+                            )
+                            : Column(
+                              children: const [
+                                Text("Did you know that your baby's immune system is getting stronger every day during the third trimester? ", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                                Text(""),
+                                Text("Read on to find out more!")
+                              ],
+                            ),
                           const SizedBox(height: 10)
                         ],
                       ),

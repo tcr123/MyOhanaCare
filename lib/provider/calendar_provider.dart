@@ -139,6 +139,7 @@ class CalendarProvider extends ChangeNotifier {
           "Authorization": "Bearer $token"
         });
       var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
 
       if(jsonResponse['message']=="200 success"){
         if (jsonResponse['data']['last_day_period'] == null || jsonResponse['data']['delivery_date'] == null) return null;
