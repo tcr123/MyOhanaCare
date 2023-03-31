@@ -41,6 +41,29 @@ Ohana Cares has two interconnected modules: one for Jill assisted by Stitchie an
     - flutter build iOS
 
 ## Screenshots
+Ohana Cares has 5 modules which are information module, chatbot module, tracker module and location module. 
+
+A. Sign Up Module 
+1. To sign up, click on the Sign up. 
+<img width="320" alt="image" src="https://user-images.githubusercontent.com/92681473/229236677-6a88c287-9cc9-401b-be13-625cf3252564.png">
+
+2. Input the following details 
+<img width="328" alt="image" src="https://user-images.githubusercontent.com/92681473/229236777-d83160ec-72bc-46a0-92dd-4e834c073393.png">
+
+3. Choose your role. 
+<img width="322" alt="image" src="https://user-images.githubusercontent.com/92681473/229236911-cea6f6d6-0c62-4f26-9c63-f71a98536163.png">
+
+4. Input the following details 
+Wife 
+<img width="325" alt="image" src="https://user-images.githubusercontent.com/92681473/229237019-834cc917-73cc-4d1a-9fe5-16b65b97b5d9.png">
+Husband
+<img width="316" alt="image" src="https://user-images.githubusercontent.com/92681473/229237126-200b83f2-4bcb-457f-adf2-e19a6c34db70.png">
+
+5. 
+
+
+5. 
+
 
 ## Contributing
 If you'd like to contribute to the project, please submit a pull request or open an issue with your suggestion.
