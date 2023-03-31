@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/auth_provider.dart';
+import '../../../provider/auth_provider.dart';
 
 // pregnancy first trimester tips
-class tips extends StatefulWidget {
-  const tips({super.key});
+class WifeFirstHalfThirdTrimester extends StatefulWidget {
+  const WifeFirstHalfThirdTrimester({super.key});
 
   @override
-  State<tips> createState() => _tipsState();
+  State<WifeFirstHalfThirdTrimester> createState() => _WifeFirstHalfThirdTrimesterState();
 }
 
-class _tipsState extends State<tips> {
+class _WifeFirstHalfThirdTrimesterState extends State<WifeFirstHalfThirdTrimester> {
   var weekdays = [
     'Sunday',
     'Monday',
@@ -45,7 +43,7 @@ class _tipsState extends State<tips> {
     DateTime now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(246, 226, 222, 1),
+        backgroundColor: const Color.fromRGBO(246, 226, 222, 1),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image.asset(authProvider.getUserData.role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
@@ -95,7 +93,7 @@ class _tipsState extends State<tips> {
                   child: Row(
                     children: [
                       Image.asset("assets/Pregnant.png"),
-                      const Text("First Trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
+                      const Text("First half of Third trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ),
@@ -106,70 +104,54 @@ class _tipsState extends State<tips> {
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your uterus is expanding: ",
+                    "Congratulations, mom-to-be! You have made it to the first half of the third trimester of your pregnancy, and your baby is growing and developing at an incredible pace. Here are some interesting and fascinating facts about your baby's development and your body during this exciting time:",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "During the first trimester, your uterus grows rapidly to accommodate your growing baby. By the end of the first trimester, your uterus will have doubled in size.",
+                    "1. Your baby's lungs are developing rapidly: At this stage, your baby's lungs are almost fully developed, and he/she is practicing breathing by inhaling and exhaling amniotic fluid. This practice helps to prepare the lungs for breathing air after birth.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
+                const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby's taste buds are forming: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "Believe it or not, your baby's taste buds start to form around week 8 of pregnancy! This means that your baby may be able to taste the foods you eat through the amniotic fluid.",
+                    "2. Your baby's brain is growing: Your baby's brain is developing rapidly during this time, with billions of new neurons forming every day. This growth spurt will continue throughout the third trimester and into early childhood.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
+                const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your blood volume increases: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "To support your growing baby, your body increases its blood volume by up to 50% during pregnancy. This can cause you to feel warmer than usual and may result in swollen feet and ankles.",
+                    "3. Your baby can hear your voice: By now, your baby's ears have developed enough for him/her to hear your voice and other sounds outside the womb. So, talk, sing, and read to your baby to help stimulate his/her brain and bond with him/her.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
+                const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby can move: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "Although you may not be able to feel it yet, your baby starts moving around during the first trimester. By the end of the first trimester, your baby is about 3 inches long and can make small, jerky movements.",
+                    "4. You may experience shortness of breath: As your baby grows and takes up more space in your abdomen, you may feel short of breath or have difficulty breathing. This is normal, and you can try to alleviate it by practicing deep breathing exercises or sleeping propped up with pillows.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
+                const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby's sex is determined: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    "5. Your baby is gaining weight: During the first half of the third trimester, your baby will gain most of his/her weight, growing from around 2 pounds to around 5 pounds. This weight gain will help your baby prepare for life outside the womb.",
+                    style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
+                const SizedBox(height: 20),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Although you won't be able to find out your baby's sex until later in pregnancy, the sex is actually determined at conception! The egg from the mother contains an X chromosome, while the sperm from the father can contain either an X or a Y chromosome, which determines whether the baby will be male or female.",
+                    "These are just a few of the fascinating facts about your baby's development and your body during the first half of the third trimester. Enjoy this special time as you prepare for the arrival of your little one!",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 )

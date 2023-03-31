@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/auth_provider.dart';
+import '../../../provider/auth_provider.dart';
 
-// pregnancy second trimester tips 
-class tips2 extends StatefulWidget {
-  const tips2({super.key});
+// pregnancy first trimester tips
+class SecondHalfThirdTrimester extends StatefulWidget {
+  const SecondHalfThirdTrimester({super.key});
 
   @override
-  State<tips2> createState() => _tips2State();
+  State<SecondHalfThirdTrimester> createState() => _SecondHalfThirdTrimesterState();
 }
 
-class _tips2State extends State<tips2> {
+class _SecondHalfThirdTrimesterState extends State<SecondHalfThirdTrimester> {
   var weekdays = [
     'Sunday',
     'Monday',
@@ -45,7 +43,7 @@ class _tips2State extends State<tips2> {
     DateTime now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(246, 226, 222, 1),
+        backgroundColor: const Color.fromRGBO(246, 226, 222, 1),
         leading: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Image.asset(authProvider.getUserData.role == 'Husband' ? "assets/male_stitch.png" : "assets/female_stitch.png"),
@@ -95,7 +93,7 @@ class _tips2State extends State<tips2> {
                   child: Row(
                     children: [
                       Image.asset("assets/Pregnant.png"),
-                      const Text("Second Trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
+                      const Text("Second half of Third trimester ", style: TextStyle(fontWeight: FontWeight.bold),),
                     ],
                   ),
                 ),
@@ -106,84 +104,42 @@ class _tips2State extends State<tips2> {
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby's hair and nails start to grow: ",
+                    "During the final weeks of your wife's pregnancy, your baby is putting on the finishing touches before making their grand entrance into the world.",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "During the second trimester, your baby's hair and nails begin to grow. This is also when your baby's eyelashes and eyebrows start to form.",
+                    "As a dad-to-be, it's important to know what's happening in your wife's body and how your baby is developing during this crucial time. At this stage, your baby is gaining weight rapidly and developing their lungs and other organs in preparation for life outside the womb. They're also becoming more active, and you may be able to feel them moving around in your wife's belly.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Your baby can hear your voice: ",
+                    "Your wife's body is also going through some significant changes as she approaches labor and delivery.",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Around week 20, your baby's ears are developed enough that they can start to hear sounds outside of the womb. Talking to your baby and playing music may be soothing for both you and your baby.",
+                    "She may experience more frequent and intense Braxton Hicks contractions, and her cervix will begin to soften and thin out in preparation for delivery.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "You may start to experience (pregnancy brain): ",
+                    "It's important to support your wife during this time and be prepared for the upcoming birth.",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 const Padding(
                   padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
                   child: Text(
-                    "Many women report feeling forgetful or absent-minded during pregnancy, and this is sometimes referred to as (pregnancy brain.) Hormonal changes and fatigue may contribute to this phenomenon.",
-                    style: TextStyle(fontWeight: FontWeight.w400),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "Your belly button may change: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "As your uterus grows, your belly button may start to pop out. This is usually temporary and should return to its normal position after pregnancy.",
-                    style: TextStyle(fontWeight: FontWeight.w400),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "You may experience Braxton Hicks contractions: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "Braxton Hicks contractions are \"practice\" contractions that your body may experience in preparation for labor. They are usually painless and can start as early as the second trimester.",
-                    style: TextStyle(fontWeight: FontWeight.w400),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "You may have vivid dreams: ",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-                  child: Text(
-                    "Hormonal changes and anxiety about pregnancy and motherhood can cause some women to have very vivid dreams during the second trimester. These dreams may be strange or even disturbing, but they are usually harmless.",
+                    "Make sure you have a plan in place for getting to the hospital or birth center, and consider taking a childbirth education class together to learn more about what to expect during labor and delivery. Remember, this is an exciting and transformative time for both you and your wife as you prepare to welcome your new baby into the world. Enjoy the journey and cherish these moments before your little one arrives.",
                     style: TextStyle(fontWeight: FontWeight.w400),
                   ),
                 )

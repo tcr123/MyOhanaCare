@@ -24,6 +24,11 @@ class AuthProvider extends ChangeNotifier {
     return education;
   }
 
+  void logout() async {
+    spouse = null;
+    notifyListeners();
+  }
+
   Future<void> getYourSpouse(String token) async {
     try {
       var url = Uri.parse('https://sticheapi.vercel.app/api/link');
@@ -68,6 +73,7 @@ class AuthProvider extends ChangeNotifier {
           },
           body: jsonEncode({'email': email}));
       var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
 
       if (jsonResponse['message'] == "200 success") {
         return User(

@@ -90,12 +90,14 @@ class _CalendarState extends State<Calendar> {
         phase = "third trimester";
       }
 
-      PregnancyPhase pregnancyPhase =
+      if (temp.weekday == 7) {
+        PregnancyPhase pregnancyPhase =
           PregnancyPhase(phase: phase, week: j.toString());
-      if (_events[temp] == null) {
-        _events[temp] = [pregnancyPhase];
-      } else {
-        _events[temp]!.add(pregnancyPhase);
+        if (_events[temp] == null) {
+          _events[temp] = [pregnancyPhase];
+        } else {
+          _events[temp]!.add(pregnancyPhase);
+        }
       }
     }
   }
