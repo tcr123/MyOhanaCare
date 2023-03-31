@@ -254,6 +254,7 @@ class _ProfileState extends State<Profile> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20))),
                         onPressed: () {
+                          authProvider.logout();
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
