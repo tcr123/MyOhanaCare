@@ -7,7 +7,7 @@ import '../model/openApiModel_model.dart';
 import 'package:http/http.dart' as http;
 
 const String _BASE_URL = "https://api.openai.com/v1";
-const String _Api_key = "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";
+const String _Api_key = "<YOUR API KEY>";
 
 class ApiServices {
   static Future<List<OpenApiModel>> getModel() async {
