@@ -2,7 +2,8 @@ import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 
 class AIHandler {
   final _openAI = OpenAI.instance.build(
-    token: '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',
+    // generate your own api key in openAI chatgpt https://platform.openai.com/account/api-keys
+    token: '',
     baseOption: HttpSetup(
       receiveTimeout: const Duration(seconds: 60),
       connectTimeout: const Duration(seconds: 60),

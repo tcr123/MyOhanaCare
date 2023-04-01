@@ -13,6 +13,7 @@ Ohana Cares has two interconnected modules: one for Jill assisted by Stitchie an
 - Dart SDK: https://dart.dev/get-dart
 - Android Studio or Visual Studio Code with Flutter and Dart plugins
 - A physical device or an emulator for running the app
+- Generate your own openAI chat token to test and paste it in lib/voicegpt/ai_handler.dart file in order to run chatgpt in our app
 
 ## Installation
 
