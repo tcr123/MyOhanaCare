@@ -413,7 +413,8 @@ class _HomePageState extends State<HomePage> {
                             child: const Text('Know More >>',
                                 style: TextStyle(color: Colors.black87,fontWeight: FontWeight.normal)),
                             onPressed: () {
-                              if ((checkingPhase.inDays / 7) + 1 >= 1 && (checkingPhase.inDays / 7) + 1 <= 7) {
+                              int weeks = (checkingPhase.inDays / 7).toInt();
+                              if (weeks + 1 >= 1 && (weeks / 7) + 1 <= 7) {
                                 role == 'Husband' 
                                 ? Navigator.push(
                                     context,
@@ -424,7 +425,7 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(builder: (context) => const WifeFirstHalfTrimester()),
                                   );
                               }
-                              else if ((checkingPhase.inDays / 7) + 1 >= 8 && (checkingPhase.inDays / 7) + 1 <= 13) {
+                              else if (weeks + 1 >= 8 && weeks + 1 <= 13) {
                                 role == 'Husband' 
                                 ? Navigator.push(
                                     context,
@@ -435,7 +436,7 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(builder: (context) => const WifeSecondHalfTrimester()),
                                   );
                               }
-                              else if ((checkingPhase.inDays / 7) + 1 >= 14 && (checkingPhase.inDays / 7) + 1 <= 20) {
+                              else if (weeks + 1 >= 14 && weeks + 1 <= 20) {
                                 role == 'Husband' 
                                 ? Navigator.push(
                                     context,
@@ -446,7 +447,7 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(builder: (context) => const WifeFirstHalfSecondTrimester()),
                                   );
                               }
-                              else if ((checkingPhase.inDays / 7) + 1 >= 21 && (checkingPhase.inDays / 7) + 1 <= 27) {
+                              else if (weeks + 1 >= 21 && weeks + 1 <= 27) {
                                 role == 'Husband' 
                                 ? Navigator.push(
                                     context,
@@ -457,7 +458,7 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(builder: (context) => const WifeSecondHalfSecondTrimester()),
                                   );
                               }
-                              else if ((checkingPhase.inDays / 7) + 1 >= 28 && (checkingPhase.inDays / 7) + 1 <= 34) {
+                              else if (weeks + 1 >= 28 && weeks + 1 <= 34) {
                                 role == 'Husband' 
                                 ? Navigator.push(
                                     context,
@@ -468,7 +469,7 @@ class _HomePageState extends State<HomePage> {
                                     MaterialPageRoute(builder: (context) => const WifeFirstHalfThirdTrimester()),
                                   );
                               }
-                              else if ((checkingPhase.inDays / 7) + 1 >= 35 && (checkingPhase.inDays / 7) + 1 <= 40) {
+                              else if (weeks + 1 >= 35 && weeks + 1 <= 40) {
                                 role == 'Husband' 
                                 ? Navigator.push(
                                     context,
