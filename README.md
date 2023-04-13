@@ -55,15 +55,67 @@ A. Sign Up Module
 <img width="322" alt="image" src="https://user-images.githubusercontent.com/92681473/229236911-cea6f6d6-0c62-4f26-9c63-f71a98536163.png">
 
 4. Input the following details 
+
 Wife 
 <img width="325" alt="image" src="https://user-images.githubusercontent.com/92681473/229237019-834cc917-73cc-4d1a-9fe5-16b65b97b5d9.png">
 Husband
 <img width="316" alt="image" src="https://user-images.githubusercontent.com/92681473/229237126-200b83f2-4bcb-457f-adf2-e19a6c34db70.png">
 
-5. 
+5. Sign Up Successful 
+Wife
+<img width="324" alt="image" src="https://user-images.githubusercontent.com/92681473/231645184-6a929314-1d5b-4674-a212-071456dc218c.png">
+Husband
+- Husbands can choose to connect with wife or maybe later in the user profile page
+<img width="323" alt="image" src="https://user-images.githubusercontent.com/92681473/231645751-18c2a696-c4ff-4a7b-901c-95df11514a1f.png">
+
+6. Connection 
+- Husbands can only connect with wife 
+<img width="324" alt="image" src="https://user-images.githubusercontent.com/92681473/231646329-d67bc744-25d8-4e18-934f-461160e37980.png">
+- Connection successful 
+<img width="326" alt="image" src="https://user-images.githubusercontent.com/92681473/231652235-95494241-7e70-4eb6-9189-4ac3913123d2.png">
+-Once connection is successful, spouse details will be displayed in the user profile page
+<img width="320" alt="image" src="https://user-images.githubusercontent.com/92681473/231652356-e2a5b51d-7166-4301-8cc0-6f5247f3ca7a.png">
+
+B. Sign In Module 
+1. Sign in Details 
+Wife: 
+email: jill3@gmail.com
+password: jill123
+
+Husband: 
+email: jack3@gmail.com
+password: jack123
+
+<img width="324" alt="image" src="https://user-images.githubusercontent.com/92681473/231653818-f6893a87-b120-403a-b40c-9e8668ad60a7.png">
+<img width="319" alt="image" src="https://user-images.githubusercontent.com/92681473/231653681-12a68ca3-027a-4568-9970-03912343f068.png">
 
 
-5. 
+C. Homepage 
+1. SOS Module 
+- Click on Stitches/Stichie to activate the SOS action 
+<img width="324" alt="image" src="https://user-images.githubusercontent.com/92681473/231654102-050a6094-3a40-4d74-a97b-52d38ea9f35b.png">
+<img width="319" alt="image" src="https://user-images.githubusercontent.com/92681473/231654232-b7a5d487-6eb1-49ba-b529-e3fa909e36de.png">
+
+- To specify the local emergency contact and personal emergency contact, click the Edit SOS button 
+<img width="324" alt="image" src="https://user-images.githubusercontent.com/92681473/231654369-d1c1c04e-3f0d-4f10-9a19-97415effe89d.png">
+<img width="323" alt="image" src="https://user-images.githubusercontent.com/92681473/231654542-983d5f63-dfa2-4bdd-b17c-cbeeb222b075.png">
+
+- Contact Numbers will be displayed in the user profile 
+<img width="339" alt="image" src="https://user-images.githubusercontent.com/92681473/231655392-9695c69d-960e-4c34-9efd-115d22ddcd2a.png">
+
+2. Education Module 
+- Click view all to be directed to the education page. 
+<img width="340" alt="image" src="https://user-images.githubusercontent.com/92681473/231655516-e915d1fd-d9ed-4aaf-994a-2d80a0376ecc.png">
+
+- Click on the card to view full article 
+<img width="335" alt="image" src="https://user-images.githubusercontent.com/92681473/231655681-7b69568a-e69e-4d9c-857d-ab1705235aff.png">
+
+
+C. Calendar Module 
+
+D. Chatbot Module 
+
+E. 
 
 
 ## Contributing
