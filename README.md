@@ -112,10 +112,24 @@ C. Homepage
 
 
 C. Calendar Module 
+1. Wife 
+- Wife can input their weight, period dates, pregnancy dates, symptoms and also event dates. 
+
+
+
+
 
 D. Chatbot Module 
+1. To access to the chatbot, be sure to generate your own openAI chat token to test and paste it in lib/voicegpt/ai_handler.dart file in order to run chatgpt in our app
+<img width="351" alt="image" src="https://user-images.githubusercontent.com/92681473/232190669-f359a791-bf37-4d75-8d57-46a72f26dc81.png">
 
-E. 
+
+E. Location Module 
+1. Click on the cards on the top to display the locations of the selected topic. 
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/92681473/232190733-6bdb920b-055f-43f4-bd66-1f4c01e16b2f.png">
+
+2. Click onto the pinned icon to be directed to google maps 
+<img width="375" alt="image" src="https://user-images.githubusercontent.com/92681473/232190836-6e6dc82b-8b4e-4686-886d-29d1aaf858b2.png">
 
 
 ## Contributing
