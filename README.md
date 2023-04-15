@@ -76,6 +76,9 @@ Husband
 -Once connection is successful, spouse details will be displayed in the user profile page
 <img width="320" alt="image" src="https://user-images.githubusercontent.com/92681473/231652356-e2a5b51d-7166-4301-8cc0-6f5247f3ca7a.png">
 
+__________________________________________________________________________________________________________________________________________________________
+
+
 B. Sign In Module 
 1. Sign in Details 
 Wife: 
@@ -90,8 +93,10 @@ password: jack123
 <img width="319" alt="image" src="https://user-images.githubusercontent.com/92681473/231653681-12a68ca3-027a-4568-9970-03912343f068.png">
 
 
-C. Homepage 
-1. SOS Module 
+__________________________________________________________________________________________________________________________________________________________
+
+
+C. SOS Module (Homepage)
 - Click on Stitches/Stichie to activate the SOS action 
 <img width="324" alt="image" src="https://user-images.githubusercontent.com/92681473/231654102-050a6094-3a40-4d74-a97b-52d38ea9f35b.png">
 <img width="319" alt="image" src="https://user-images.githubusercontent.com/92681473/231654232-b7a5d487-6eb1-49ba-b529-e3fa909e36de.png">
@@ -103,33 +108,52 @@ C. Homepage
 - Contact Numbers will be displayed in the user profile 
 <img width="339" alt="image" src="https://user-images.githubusercontent.com/92681473/231655392-9695c69d-960e-4c34-9efd-115d22ddcd2a.png">
 
-2. Education Module 
+__________________________________________________________________________________________________________________________________________________________
+
+
+E. Education Module (Homepage) 
 - Click view all to be directed to the education page. 
 <img width="340" alt="image" src="https://user-images.githubusercontent.com/92681473/231655516-e915d1fd-d9ed-4aaf-994a-2d80a0376ecc.png">
 
 - Click on the card to view full article 
 <img width="335" alt="image" src="https://user-images.githubusercontent.com/92681473/231655681-7b69568a-e69e-4d9c-857d-ab1705235aff.png">
 
+__________________________________________________________________________________________________________________________________________________________
 
-C. Calendar Module 
+F. Calendar Module 
 1. Wife 
 - Wife can input their weight, period dates, pregnancy dates, symptoms and also event dates. 
+<img width="323" alt="image" src="https://user-images.githubusercontent.com/92681473/232196422-e2d234da-afcf-4fbf-b6a2-8ff6f2e43107.png">
+
+- By clicking the dates on their calendar, they can view the details that is inputed for that date at the bottom of the calendar 
+<img width="323" alt="image" src="https://user-images.githubusercontent.com/92681473/232196572-d28669fc-8623-402c-bff9-55e9c2b4cc3a.png">
 
 
+2. Husband
+- Husbands can input their event schedule to notify their wives 
+<img width="321" alt="image" src="https://user-images.githubusercontent.com/92681473/232196284-531d67e5-7504-4cea-bca5-b7e04078afc3.png">
 
+- They can also click on the dates and view their wives body condition specified at the bottom of the calendar 
+- <img width="322" alt="image" src="https://user-images.githubusercontent.com/92681473/232196357-6d6491c3-d51a-4f28-afd6-b1d2ef6bd268.png">
 
+__________________________________________________________________________________________________________________________________________________________
 
-D. Chatbot Module 
+G. Chatbot Module 
 1. To access to the chatbot, be sure to generate your own openAI chat token to test and paste it in lib/voicegpt/ai_handler.dart file in order to run chatgpt in our app
 <img width="351" alt="image" src="https://user-images.githubusercontent.com/92681473/232190669-f359a791-bf37-4d75-8d57-46a72f26dc81.png">
 
 
-E. Location Module 
+__________________________________________________________________________________________________________________________________________________________
+
+H. Location Module 
 1. Click on the cards on the top to display the locations of the selected topic. 
 <img width="375" alt="image" src="https://user-images.githubusercontent.com/92681473/232190733-6bdb920b-055f-43f4-bd66-1f4c01e16b2f.png">
 
 2. Click onto the pinned icon to be directed to google maps 
 <img width="375" alt="image" src="https://user-images.githubusercontent.com/92681473/232190836-6e6dc82b-8b4e-4686-886d-29d1aaf858b2.png">
+
+__________________________________________________________________________________________________________________________________________________________
+
 
 
 ## Contributing
